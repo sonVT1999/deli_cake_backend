@@ -2,8 +2,10 @@
 
 import traceback
 from time import strftime
+
 from flask import Flask, request
 from flask_cors import CORS
+
 from app.extensions import jwt, logger, db, ma
 from .api import v1 as api_v1
 from .settings import ProdConfig

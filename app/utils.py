@@ -1,10 +1,10 @@
 from time import time
 
+import werkzeug
 from flask import jsonify
+from marshmallow import fields, validate as validate_
 
 from .extensions import parser
-import werkzeug
-from marshmallow import fields, validate as validate_
 
 
 def parse_req(argmap):

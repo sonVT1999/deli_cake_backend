@@ -1,12 +1,11 @@
 import logging
 import os
+from logging.handlers import RotatingFileHandler
 
+from flask_jwt_extended import JWTManager
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from webargs.flaskparser import FlaskParser
-from flask_jwt_extended import JWTManager
-from logging.handlers import RotatingFileHandler
-
 
 parser = FlaskParser()
 jwt = JWTManager()
