@@ -1,4 +1,5 @@
 from flask import Blueprint
+
 from app.utils import send_result
 
 api = Blueprint('auth', __name__)
@@ -26,3 +27,21 @@ def login():
 
     return send_result(data=data, message="Logged in successfully!")
 
+
+@api.route('/logout', methods=['POST'])
+def logout():
+    """ This is controller of the logout api
+
+    Requests Body:
+
+    Returns:
+
+    Examples::
+
+    """
+
+    data = {
+        'display_name': "display_name"
+    }
+
+    return send_result(data=data, message="logout in successfully!")
