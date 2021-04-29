@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 
 from app.utils import send_result
 
@@ -6,7 +6,7 @@ api = Blueprint('users', __name__)
 
 users = [
     {'id': "1", 'name': "son", 'address': "Ha Noi", 'phone_number': "0987243623",
-     'email': "son@boot.ai", 'total': 504, 'created': "01/05/2021", 'order':
+     'email': "son@boot.ai", 'total': 504, 'created': 1615791600, 'order':
          [
              {"decription": 'matcha chess cake', "amount": '1', "price": 168, "total": 168, "voucher": 'False',
               "tax": 'False'},
@@ -17,7 +17,7 @@ users = [
          ]
      },
     {'id': "2", 'name': "ha", 'address': "Thai Binh", 'phone_number': "0987243623",
-     'email': "han@boot.ai", 'total': 668, 'created': "01/05/2021", 'order':
+     'email': "han@boot.ai", 'total': 668, 'created': 1618475000, 'order':
          [
              {"decription": 'matcha chess cake', "amount": '1', "price": 168, "total": 168, "voucher": 'False',
               "tax": 'False'},
@@ -28,7 +28,7 @@ users = [
          ]
      },
     {'id': "3", 'name': "hao", 'address': "Ha Nam", 'phone_number': "0987243623",
-     'email': "hao@boot.ai", 'total': 600, 'created': "01/05/2021", 'order':
+     'email': "hao@boot.ai", 'total': 600, 'created': 1615791600, 'order':
          [
              {"decription": 'banana cake', "amount": '1', "price": 100, "total": 100, "voucher": 'False',
               "tax": 'False'},
@@ -39,7 +39,7 @@ users = [
          ]
      },
     {'id': "4", 'name': "hung", 'address': "Ha Tay", 'phone_number': "0987243623",
-     'email': "hung@boot.ai", 'total': 504, 'created': "01/05/2021", 'order':
+     'email': "hung@boot.ai", 'total': 504, 'created': 1618440000, 'order':
          [
              {"decription": 'fruit chess cake', "amount": '1', "price": 168, "total": 168, "voucher": 'False',
               "tax": 'False'},
@@ -62,5 +62,16 @@ def get_by_name(input):
     i = []
     for data in users:
         if data['name'] == input:
+            i.append(data)
+    return send_result(i)
+
+
+@api.route('/date', methods=['GET'])
+def get_by_date():
+    i = []
+    start = request.args.get('start', 1617210000, type=int)
+    end = request.args.get('end', 1619715600, type=int)
+    for data in users:
+        if data['created'] >= start and data['created'] <= end:
             i.append(data)
     return send_result(i)
