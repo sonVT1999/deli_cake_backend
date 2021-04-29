@@ -5,7 +5,7 @@ from app.utils import send_result, send_error
 api = Blueprint('categories', __name__)
 
 categories = [
-    {'id': 1, 'name': "birthday cake",
+    {'id': "1", 'name': "birthday cake",
      'subcategory':
          [
              {
@@ -23,7 +23,7 @@ categories = [
          ]
      },
 
-    {'id': 2, 'name': "cheese cake",
+    {'id': "2", 'name': "cheese cake",
      'subcategory':
          [
              {
@@ -40,7 +40,7 @@ categories = [
              }
          ]
      },
-    {'id': 3, 'name': "dessert cake", 'subcategory':
+    {'id': "3", 'name': "dessert cake", 'subcategory':
         [
             {
                 "sub_id": 1,
@@ -56,7 +56,7 @@ categories = [
             }
         ]
      },
-    {'id': 4, 'name': "bread", 'subcategory':
+    {'id': "4", 'name': "bread", 'subcategory':
         [
             {
                 "sub_id": 1,

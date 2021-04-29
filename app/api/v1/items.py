@@ -59,7 +59,7 @@ def put_by_id(_id):
 def delete_by_id():
 
     global items
-    ids = request.args.getlist('ids', type=list)
+    ids = request.args.getlist('ids', type=str)
     items = [i for i in items if i["id"] not in ids]
 
     return send_result(items)

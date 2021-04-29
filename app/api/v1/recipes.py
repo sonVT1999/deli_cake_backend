@@ -54,7 +54,7 @@ def get_by_category(category):
 def delete_by_id():
 
     global recipes
-    ids = request.args.getlist('ids', type=list)
+    ids = request.args.getlist('ids', type=str)
     recipes = [i for i in recipes if i["id"] not in ids]
 
     return send_result(recipes)
