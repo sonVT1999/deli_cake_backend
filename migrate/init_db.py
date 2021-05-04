@@ -5,8 +5,8 @@ from app.extensions import db
 from app.models import User
 from app.settings import DevConfig, ProdConfig, os
 
-CONFIG = DevConfig if os.environ.get('DevConfig') == '1' else ProdConfig
-default_file = "default.json" if os.environ.get('DevConfig') == '1' else "migrate/default.json"
+CONFIG = DevConfig
+default_file = "default.json"
 
 
 class Worker:
@@ -39,5 +39,5 @@ class Worker:
 
 if __name__ == '__main__':
     worker = Worker()
-    worker.insert_default_users()
+    # worker.insert_default_users()
     print("=" * 50, "Database migration completed", "=" * 50)

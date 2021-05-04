@@ -39,13 +39,11 @@ users = [
          ]
      },
     {'id': "4", 'name': "hung", 'address': "Ha Tay", 'phone_number': "0987243623",
-     'email': "hung@boot.ai", 'total': 504, 'created': 1618440000, 'order':
+     'email': "hung@boot.ai", 'total': 336, 'created': 1618440000, 'order':
          [
              {"decription": 'fruit chess cake', "amount": '1', "price": 168, "total": 168, "voucher": 'False',
               "tax": 'False'},
              {"decription": 'matcha chess cake', "amount": '1', "price": 168, "total": 168, "voucher": 'False',
-              "tax": 'False'},
-             {"decription": 'chocolate cake', "amount": '1', "price": 168, "total": 168, "voucher": 'False',
               "tax": 'False'}
          ]
      },
