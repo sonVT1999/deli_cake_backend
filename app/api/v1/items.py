@@ -32,7 +32,7 @@ def get_all():
 
 
 @api.route('/<string:input>', methods=['GET'])
-def get_by_id(input):
+def search_by_id(input):
     i = []
     for data in items:
         if data['id'] or data['name'] == input:

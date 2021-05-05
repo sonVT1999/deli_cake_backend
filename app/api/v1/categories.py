@@ -78,11 +78,11 @@ categories = [
 @api.route('', methods=['GET'])
 def get_all():
     return send_result(data=categories)
+    # return {'categories': [x.json() for x in models.Category.query.all()]}
 
 
 @api.route('/', methods=["POST"])
 def create_cate():
-
     data = request.get_json()
     cate = {**data}
     categories.append(cate)
