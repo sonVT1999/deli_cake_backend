@@ -1,9 +1,322 @@
 {
-    "users": [
+    "users":
+    [
           {
-            "id": "457c17c8-7a74-11eb-9439-0242ac130002",
-            "username": "admin",
-            "password": "pbkdf2:sha256:150000$VuKE7ySs$ced9ddc3a3ffddbf73f47af936797eb2b4c594e39e452456f9496f72ed7028ce"
-        }
+            "id": "1",
+            "username": "son",
+            "password": "123",
+            "address": "Thái Bình",
+            "phone_number": "0987123734",
+            "email": "vuson212@gmail.com",
+            "is_admin": 1
+          },
+          {
+            "id": "2",
+            "username": "dat",
+            "password": "123",
+            "address": "Hà Nam",
+            "phone_number": "0987323734",
+            "email": "",
+            "is_admin": 1
+          },
+          {
+            "id": "3",
+            "username": "trong",
+            "password": "123",
+            "address": "Quảng Ninh",
+            "phone_number": "0237123734",
+            "email": "",
+            "is_admin": 0
+          },
+          {
+            "id": "4",
+            "username": "le",
+            "password": "123",
+            "address": "Hải Phòng",
+            "phone_number": "0987789789",
+            "email": "",
+            "is_admin": 0
+          },
+          {
+            "id": "5",
+            "username": "Hao",
+            "password": "123",
+            "address": "Quảng Bình",
+            "phone_number": "0237453734",
+            "email": "",
+            "is_admin": 0
+          }
+    ],
+      "recipes":
+    [
+          {
+            "id": "1",
+            "direction": "preheat oven to 350 degrees F(175 degrees C)...",
+            "ingredient": "2 sheets of puff pastry...",
+            "image": "",
+            "name": "matcha chocolate",
+            "publish_at": 1620182056
+          },
+          {
+            "id": "2",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "matcha bread",
+            "publish_at": 1620182352
+          },
+          {
+            "id": "3",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "seven layer cake",
+            "publish_at": 1620187454
+          },
+          {
+            "id": "4",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "yellow butter cake",
+            "publish_at": 1610182056
+          }
+    ],
+      "categories":
+    [
+          {
+            "id": "1",
+            "name": "Birthday Cake"
+          },
+          {
+            "id": "2",
+            "name": "Cheese Cake"
+          },
+          {
+            "id": "3",
+            "name": "Dessert Cake"
+          },
+          {
+            "id": "4",
+            "name": "Bread"
+          }
+    ],
+      "subcategories":
+    [
+          {
+            "id": "1",
+            "name": "Chiffon Cake",
+            "category_id": "1"
+          },
+          {
+            "id": "2",
+            "name": "Pound Cake",
+            "category_id": "1"
+          },
+          {
+            "id": "3",
+            "name": "Fruit Cake",
+            "category_id": "2"
+          },
+          {
+            "id": "4",
+            "name": "Fudgy Chocolate",
+            "category_id": "2"
+          },
+          {
+            "id": "5",
+            "name": "Varrot Cake",
+            "category_id": "3"
+          },
+          {
+            "id": "6",
+            "name": "Chocolate Tarts",
+            "category_id": "3"
+          },
+          {
+            "id": "7",
+            "name": "Rye Bread",
+            "category_id": "4"
+          },
+          {
+            "id": "8",
+            "name": "Pita Bread",
+            "category_id": "4"
+          }
+    ],
+      "items":
+    [
+          {
+            "id": "1",
+            "name": "matcha cheese cake",
+            "price": 40,
+            "product_detail": "",
+            "size": "16cm x 16cm",
+            "subcategory_id": "1",
+            "recipe_id": "1"
+          },
+          {
+            "id": "2",
+            "name": "baked flourless cake",
+            "price": 38,
+            "product_detail": "",
+            "size": "16cm x 16cm",
+            "subcategory_id": "3",
+            "recipe_id": "1"
+          },
+          {
+            "id": "3",
+            "name": "unbaked flourless cake",
+            "price": 60,
+            "product_detail": "",
+            "size": "16cm x 16cm",
+            "subcategory_id": "3",
+            "recipe_id": "1"
+          },
+          {
+            "id": "4",
+            "name": "matcha chocolate",
+            "price": 600,
+            "product_detail": "",
+            "size": "16cm x 16cm",
+            "subcategory_id": "2",
+            "recipe_id": "3"
+          },
+          {
+            "id": "5",
+            "name": "yellow butter cake",
+            "price": 168,
+            "product_detail": "",
+            "size": "16cm x 16cm",
+            "subcategory_id": "2",
+            "recipe_id": "4"
+          },
+          {
+            "id": "6",
+            "name": "petite madeleine",
+            "price": 234,
+            "product_detail": "",
+            "size": "16cm x 16cm",
+            "subcategory_id": "4",
+            "recipe_id": "2"
+          }
+    ],
+      "status":
+    [
+          {
+            "id": "1",
+            "name": "Completed"
+          },
+          {
+            "id": "2",
+            "name": "Confirmed"
+          },
+          {
+            "id": "3",
+            "name": "Pending"
+          },
+          {
+            "id": "4",
+            "name": "Cancelled"
+          }
+    ],
+      "orders":
+    [
+          {
+            "id": "1",
+            "created_date": 1620182056,
+            "total": 234,
+            "status_id": "1",
+            "user_id": "1"
+          },
+          {
+            "id": "2",
+            "created_date": 1620095656,
+            "total": 867,
+            "status_id": "2",
+            "user_id": "1"
+          },
+          {
+            "id": "3",
+            "created_date": 1617503656,
+            "total": 2354,
+            "status_id": "3",
+            "user_id": "1"
+          },
+          {
+            "id": "4",
+            "created_date": 1619145256,
+            "total": 536,
+            "status_id": "4",
+            "user_id": "1"
+          },
+          {
+            "id": "5",
+            "created_date": 1617244456,
+            "total": 1535,
+            "status_id": "1",
+            "user_id": "1"
+          }
+    ],
+      "order_details":
+    [
+          {
+            "id": "1",
+            "order_id": "1",
+            "item_id": "1",
+            "amount": 3
+          },
+          {
+            "id": "2",
+            "order_id": "2",
+            "item_id": "3",
+            "amount": 2
+          },
+          {
+            "id": "3",
+            "order_id": "3",
+            "item_id": "6",
+            "amount": 1
+          },
+          {
+            "id": "4",
+            "order_id": "1",
+            "item_id": "4",
+            "amount": 1
+          },
+          {
+            "id": "5",
+            "order_id": "4",
+            "item_id": "2",
+            "amount": 4
+          }
+    ],
+      "images":
+    [
+          {
+            "id": "1",
+            "name": "",
+            "item_id": "1"
+          },
+          {
+            "id": "2",
+            "name": "",
+            "item_id": "1"
+          },
+          {
+            "id": "3",
+            "name": "",
+            "item_id": "2"
+          },
+          {
+            "id": "4",
+            "name": "",
+            "item_id": "3"
+          },
+          {
+            "id": "5",
+            "name": "",
+            "item_id": "4"
+          }
     ]
 }
