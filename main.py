@@ -2,7 +2,7 @@ from app.app import create_app
 
 from app.settings import DevConfig, ProdConfig, os
 
-CONFIG = DevConfig if os.environ.get('DevConfig') == '1' else ProdConfig
+CONFIG = DevConfig
 
 app = create_app(config_object=CONFIG)
 

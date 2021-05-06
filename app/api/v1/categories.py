@@ -78,10 +78,16 @@ categories = [
 
 @api.route('', methods=['GET'])
 def get_all():
-    # return send_result(data=categories)
-    # return {'categories': [x.json() for x in models.Category.query..all()]}
-    result = models.Category.get_all_cate()
-    return result
+    # v = []
+    t = [x.json() for x in models.Category.query.all()]
+    # t = [{'id': 'asddas', 'name': 'sadasd'}]
+    # t = [{'id': 'asddas', 'name': 'sadasd', 'subs': y}]
+    # for i in t:
+    #     y = [x.json() for x in models.Subcategory.get_by_category_id(i['id'])]
+    #     v.append(y)
+    for i in t:
+        i["subcategory"] = [x.json() for x in models.Subcategory.get_by_category_id(i['id'])]
+    return send_result(t)
 
 
 @api.route('/', methods=["POST"])

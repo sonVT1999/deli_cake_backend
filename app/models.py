@@ -33,25 +33,16 @@ class Category(db.Model):
     id = db.Column(db.String(100), primary_key=True)
     name = db.Column(db.String(100))
 
-    # def __init__(self, id, name):
-    #     self.id = id
-    #     self.name = name
-    #
-    # def json(self):
-    #     return {'id': self.id, 'name': self.name}
-    #
-    # def save_to_db(self):
-    #     db.session.add(self)
-    #     db.session.commit()
-    #
-    # def delete_to_db(self):
-    #     db.session.delete(self)
-    #     db.session.commit()
-    #
-    # @classmethod
-    # def get_all_cate(cls):
-    #     return cls.query.join(Subcategory, Subcategory.category_id == cls.id) \
-    #             .add_columns(cls.id, Subcategory.id, Subcategory.name).all()
+    def json(self):
+        return {'id': self.id, 'name': self.name}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Subcategory(db.Model):
@@ -60,6 +51,22 @@ class Subcategory(db.Model):
     id = db.Column(db.String(100), primary_key=True)
     name = db.Column(db.String(100))
     category_id = db.Column(ForeignKey(Category.id), nullable=False)
+
+    def json(self):
+        return {'id': self.id, 'name': self.name, 'category_id': self.category_id}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    # get_by_category_id
+    def get_by_category_id(cls, _id):
+        return cls.query.filter_by(category_id=_id).all()
 
 
 class Item(db.Model):

@@ -24,7 +24,7 @@ class ProdConfig(Config):
     JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
 
     # mysql config
-    SQLALCHEMY_DATABASE_URI = 'mysql://'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:123456@localhost/deli_cake_db'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
