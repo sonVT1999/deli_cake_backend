@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 
+from app import models
 from app.utils import send_result, send_error
 
 api = Blueprint('categories', __name__)
@@ -77,8 +78,10 @@ categories = [
 
 @api.route('', methods=['GET'])
 def get_all():
-    return send_result(data=categories)
-    # return {'categories': [x.json() for x in models.Category.query.all()]}
+    # return send_result(data=categories)
+    # return {'categories': [x.json() for x in models.Category.query..all()]}
+    result = models.Category.get_all_cate()
+    return result
 
 
 @api.route('/', methods=["POST"])
