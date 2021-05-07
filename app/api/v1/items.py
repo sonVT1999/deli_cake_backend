@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 
+from app import models
 from app.utils import send_result, send_error
 
 api = Blueprint('items', __name__)
@@ -16,7 +17,6 @@ items = [
 
 @api.route('/', methods=["POST"])
 def create_item():
-
     data = request.get_json()
     item = {**data}
     items.append(item)
@@ -28,7 +28,15 @@ def create_item():
 
 @api.route('', methods=['GET'])
 def get_all():
-    return send_result(data=items)
+    x = [x.json() for x in models.Item.query.all()]
+
+    for i in x:
+        i["subcategory"] = models.Subcategory.get_by_id(i['id']).json()
+
+    for i in x:
+        i["category"] = models.Category.get_by_id(i['subcategory']['category_id']).json()
+
+    return send_result(x)
 
 
 @api.route('/<string:input>', methods=['GET'])
@@ -57,7 +65,6 @@ def put_by_id(_id):
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
-
     global items
     ids = request.args.getlist('ids', type=str)
     items = [i for i in items if i["id"] not in ids]
@@ -65,21 +72,22 @@ def delete_by_id():
     return send_result(items)
 
 
-@api.route('/cate/<string:category>', methods=['GET'])
-def get_by_category(category):
-    i = []
-    for data in items:
-        if data['category'] == category:
-            i.append(data)
-    return send_result(i)
+@api.route('/cate/<string:_id>', methods=['GET'])
+def get_by_category(_id):
+    sub_categories = models.Subcategory.get_by_id_category(_id)
+    sub_category_ids = [i.id for i in sub_categories]
+    _items = models.Item.query.filter(models.Item.subcategory_id.in_(sub_category_ids))
+    rs = [i.json() for i in _items]
+    print(sub_category_ids)
+
+    return send_result(rs)
 
 
-@api.route('/sub', methods=['GET'])
-def get_by_sub():
-    i = []
-    cate = request.args.get('cate', "", type=str)
-    sub = request.args.get('sub', "", type=str)
-    for data in items:
-        if data['category'] == cate and data['subcategory'] == sub:
-            i.append(data)
-    return send_result(i)
+@api.route('/sub/<string:_id>', methods=['GET'])
+def get_by_sub(_id):
+    x = [x.json() for x in models.Item.get_by_id_subcategory(_id)]
+
+    for i in x:
+        i["subcategory"] = (models.Subcategory.get_by_id(_id)).json()
+        i["category"] = models.Category.get_by_id(i['subcategory']['category_id']).json()
+    return send_result(x)

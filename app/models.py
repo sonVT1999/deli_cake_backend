@@ -26,6 +26,22 @@ class Recipe(db.Model):
     image = db.Column(db.String(255))
     publish_at = db.Column(db.Integer, nullable=False)
 
+    def json(self):
+        return {'id': self.id, 'name': self.name, 'direction': self.direction, 'ingredient': self.ingredient,
+                'image': self.image, 'publish_at': self.publish_at}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def get_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+
 
 class Category(db.Model):
     __tablename__ = 'categories'
@@ -43,6 +59,10 @@ class Category(db.Model):
     def delete_to_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def get_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
 
 class Subcategory(db.Model):
@@ -64,9 +84,13 @@ class Subcategory(db.Model):
         db.session.commit()
 
     @classmethod
-    # get_by_category_id
-    def get_by_category_id(cls, _id):
+    def get_by_id_category(cls, _id):
         return cls.query.filter_by(category_id=_id).all()
+
+    @classmethod
+    def get_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+
 
 
 class Item(db.Model):
@@ -80,6 +104,25 @@ class Item(db.Model):
     subcategory_id = db.Column(ForeignKey(Subcategory.id), nullable=False)
     recipe_id = db.Column(ForeignKey(Recipe.id))
 
+    def json(self):
+        return {'id': self.id, 'name': self.name, 'price': self.price, 'product_detail': self.product_detail,
+                'size': self.size}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def get_by_id_subcategory(cls, _id):
+        return cls.query.filter_by(subcategory_id=_id).all()
+
+    @classmethod
+    def get_by_id_recipe(cls, _id):
+        return cls.query.filter_by(recipe_id=_id).first()
 
 class Status(db.Model):
     __tablename__ = 'status'
