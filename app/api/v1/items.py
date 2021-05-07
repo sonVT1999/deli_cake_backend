@@ -78,7 +78,10 @@ def get_by_category(_id):
     sub_category_ids = [i.id for i in sub_categories]
     _items = models.Item.query.filter(models.Item.subcategory_id.in_(sub_category_ids))
     rs = [i.json() for i in _items]
-    print(sub_category_ids)
+    for i in rs:
+        i["subcategory"] = (models.Subcategory.get_by_id(i['subcategory_id'])).json()
+    for i in rs:
+        i["category"] = (models.Category.get_by_id(i['subcategory']['category_id'])).json()
 
     return send_result(rs)
 

@@ -106,7 +106,7 @@ class Item(db.Model):
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'price': self.price, 'product_detail': self.product_detail,
-                'size': self.size}
+                'size': self.size, 'subcategory_id': self.subcategory_id, 'recipe_id': self.recipe_id}
 
     def save_to_db(self):
         db.session.add(self)
