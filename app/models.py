@@ -124,6 +124,11 @@ class Item(db.Model):
     def get_by_id_recipe(cls, _id):
         return cls.query.filter_by(recipe_id=_id).first()
 
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+
+
 class Status(db.Model):
     __tablename__ = 'status'
 
