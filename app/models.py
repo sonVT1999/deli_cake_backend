@@ -15,6 +15,18 @@ class User(db.Model):
     email = db.Column(db.String(100))
     is_admin = db.Column(db.Boolean(), nullable=False)
 
+    def json(self):
+        return {'id': self.id, 'username': self.username, 'password': self.password, 'address': self.address,
+                'phone_number': self.phone_number, 'email': self.email, 'is_admin': self.is_admin}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Recipe(db.Model):
     __tablename__ = 'recipes'
@@ -129,21 +141,30 @@ class Item(db.Model):
         return cls.query.filter_by(id=_id).first()
 
 
-class Status(db.Model):
-    __tablename__ = 'status'
-
-    id = db.Column(db.String(100), primary_key=True)
-    name = db.Column(db.String(100))
-
-
 class Order(db.Model):
     __tablename__ = 'orders'
 
     id = db.Column(db.String(100), primary_key=True)
     total = db.Column(db.Float, nullable=False)
     created_date = db.Column(db.Integer, nullable=False)
-    status_id = db.Column(ForeignKey(Status.id), nullable=False)
+    status = db.Column(db.String(100), nullable=False)
     user_id = db.Column(ForeignKey(User.id), nullable=False)
+
+    def json(self):
+        return {'id': self.id, 'total': self.total, 'created_date': self.created_date,
+                'status': self.status, 'user_id': self.user_id}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
 
 class Order_detail(db.Model):
@@ -154,6 +175,17 @@ class Order_detail(db.Model):
     item_id = db.Column(ForeignKey(Item.id), nullable=False)
     amount = db.Column(db.Integer, nullable=False)
 
+    def json(self):
+        return {'id': self.id, 'order_id': self.order_id, 'item_id': self.item_id, 'amount': self.amount}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Image(db.Model):
     __tablename__ = 'images'
@@ -161,3 +193,14 @@ class Image(db.Model):
     id = db.Column(db.String(100), primary_key=True)
     name = db.Column(db.String(100))
     item_id = db.Column(ForeignKey(Item.id), nullable=False)
+
+    def json(self):
+        return {'id': self.id, 'name': self.name, 'item_id': self.item_id}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()

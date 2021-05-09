@@ -201,61 +201,42 @@
             "recipe_id": "2"
           }
     ],
-      "status":
-    [
-          {
-            "id": "1",
-            "name": "Completed"
-          },
-          {
-            "id": "2",
-            "name": "Confirmed"
-          },
-          {
-            "id": "3",
-            "name": "Pending"
-          },
-          {
-            "id": "4",
-            "name": "Cancelled"
-          }
-    ],
       "orders":
     [
           {
             "id": "1",
             "created_date": 1620182056,
             "total": 234,
-            "status_id": "1",
+            "status": "completed",
             "user_id": "1"
           },
           {
             "id": "2",
             "created_date": 1620095656,
             "total": 867,
-            "status_id": "2",
-            "user_id": "1"
+            "status": "pending",
+            "user_id": "2"
           },
           {
             "id": "3",
             "created_date": 1617503656,
             "total": 2354,
-            "status_id": "3",
-            "user_id": "1"
+            "status": "completed",
+            "user_id": "3"
           },
           {
             "id": "4",
             "created_date": 1619145256,
             "total": 536,
-            "status_id": "4",
-            "user_id": "1"
+            "status": "confirmed",
+            "user_id": "4"
           },
           {
             "id": "5",
             "created_date": 1617244456,
             "total": 1535,
-            "status_id": "1",
-            "user_id": "1"
+            "status": "cancelled",
+            "user_id": "5"
           }
     ],
       "order_details":

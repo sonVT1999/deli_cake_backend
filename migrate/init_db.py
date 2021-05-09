@@ -3,7 +3,7 @@ import json
 from flask import Flask
 
 from app.extensions import db
-from app.models import User, Order_detail, Order, Recipe, Subcategory, Category, Image, Item, Status
+from app.models import User, Order_detail, Order, Recipe, Subcategory, Category, Image, Item
 from app.settings import DevConfig
 
 CONFIG = DevConfig
@@ -72,15 +72,6 @@ class Worker:
             db.session.add(instance)
         db.session.commit()
 
-    def insert_default_status(self):
-        status = self.default_data.get('status', {})
-        for item in status:
-            instance = Status()
-            for key in item.keys():
-                instance.__setattr__(key, item[key])
-            db.session.add(instance)
-        db.session.commit()
-
     def insert_default_orders(self):
         orders = self.default_data.get('orders', {})
         for item in orders:
@@ -116,7 +107,6 @@ if __name__ == '__main__':
     worker.insert_default_categories()
     worker.insert_default_subcategories()
     worker.insert_default_items()
-    worker.insert_default_status()
     worker.insert_default_orders()
     worker.insert_default_order_details()
     print("=" * 50, "Database migration completed", "=" * 50)

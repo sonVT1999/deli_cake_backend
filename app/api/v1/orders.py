@@ -1,6 +1,8 @@
 from flask import Blueprint, request
+from flask_restful import reqparse
 
-
+from app import models
+from app.extensions import db
 from app.utils import send_result, send_error
 
 api = Blueprint('orders', __name__)
@@ -21,31 +23,36 @@ orders = [
 
 @api.route('', methods=['GET'])
 def get_all():
-    return send_result(data=orders)
+    all_order = [x.json() for x in models.Order.query.all()]
+
+    return send_result(all_order)
 
 
 @api.route('/stt/<string:status>', methods=['GET'])
 def get_by_stt(status):
-    i = []
-    for data in orders:
+    rs = []
+    x = [x.json() for x in models.Order.query.all()]
+
+    for data in x:
         if data['status'] == status:
-            i.append(data)
-    return send_result(i)
+            rs.append(data)
+    return send_result(rs)
 
 
 @api.route('/<int:_id>', methods=['PUT'])
 def put_by_id(_id):
-    data = request.get_json()
-    item = next(filter(lambda x: x['id'] == _id, orders), None)
-    if item is None:
+    data = reqparse.request.get_json()
+
+    order = models.Order.find_by_id(_id)
+    if order is None:
         send_error()
     else:
-        keys = ["status"]
+        keys = ["total", "created_date", "status", "user_id"]
         for key in keys:
             if key in data.keys():
-                item[key] = data[key]
-        item.update(data)
-    return send_result(item)
+                setattr(order, key, data[key])
+        db.session.commit()
+    return send_result(order.json())
 
 
 @api.route('/', methods=['DELETE'])
