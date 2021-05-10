@@ -1,3 +1,5 @@
+import uuid
+
 from flask import Blueprint
 from flask_restful import request, reqparse
 
@@ -10,10 +12,8 @@ api = Blueprint('items', __name__)
 
 @api.route('/', methods=["POST"])
 def create_item():
-    # cách cho id tự tăng khi thêm mới
     data = reqparse.request.get_json()
-
-    item = models.Item(**data)
+    item = models.Item(id=str(uuid.uuid1()), **data)
     try:
         item.save_to_db()
         return send_result(item.json())
@@ -26,7 +26,7 @@ def get_all():
     all_item = [x.json() for x in models.Item.query.all()]
 
     for data in all_item:
-        data["subcategory"] = models.Subcategory.get_by_id(data['id']).json()
+        data["subcategory"] = models.Subcategory.get_by_id(data['subcategory_id']).json()
 
     for data in all_item:
         data["category"] = models.Category.get_by_id(data['subcategory']['category_id']).json()
@@ -64,9 +64,11 @@ def put_by_id(_id):
 def delete_by_id():
     # cách xóa khóa ngoại
     ids = request.args.getlist('ids', type=str)
-    item = models.Item.find_by_id(ids)
-    if item:
-        item.delete_to_db()
+    print(ids)
+    for i in ids:
+        item = models.Item.find_by_id(i)
+        if item:
+            item.delete_to_db()
     return send_result(message="deleted successfully!")
 
 

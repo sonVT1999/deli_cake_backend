@@ -24,6 +24,8 @@ orders = [
 @api.route('', methods=['GET'])
 def get_all():
     all_order = [x.json() for x in models.Order.query.all()]
+    for data in all_order:
+        data["user"] = models.User.get_by_id(data['user_id']).json()
 
     return send_result(all_order)
 

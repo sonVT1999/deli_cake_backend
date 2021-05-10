@@ -1,5 +1,6 @@
 # coding: utf-8
 from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, backref
 
 from app.extensions import db
 
@@ -26,6 +27,10 @@ class User(db.Model):
     def delete_to_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def get_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
 
 class Recipe(db.Model):
@@ -104,7 +109,6 @@ class Subcategory(db.Model):
         return cls.query.filter_by(id=_id).first()
 
 
-
 class Item(db.Model):
     __tablename__ = 'items'
 
@@ -115,6 +119,7 @@ class Item(db.Model):
     size = db.Column(db.String(50))
     subcategory_id = db.Column(ForeignKey(Subcategory.id), nullable=False)
     recipe_id = db.Column(ForeignKey(Recipe.id))
+    order_detail = relationship("Order_detail", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'price': self.price, 'product_detail': self.product_detail,
@@ -139,6 +144,12 @@ class Item(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def delete_by_id(cls, _id):
+        rs = cls.query.filter_by(id=_id).first().order_detail
+        return rs
+
 
 
 class Order(db.Model):
@@ -186,6 +197,9 @@ class Order_detail(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @classmethod
+    def find_by_item_id(cls, _id):
+        return cls.query.filter_by(item_id=_id).first()
 
 class Image(db.Model):
     __tablename__ = 'images'
