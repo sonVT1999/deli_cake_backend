@@ -47,41 +47,6 @@
             "is_admin": 0
           }
     ],
-      "recipes":
-    [
-          {
-            "id": "1",
-            "direction": "preheat oven to 350 degrees F(175 degrees C)...",
-            "ingredient": "2 sheets of puff pastry...",
-            "image": "",
-            "name": "matcha chocolate",
-            "publish_at": 1620182056
-          },
-          {
-            "id": "2",
-            "direction": "",
-            "ingredient": "",
-            "image": "",
-            "name": "matcha bread",
-            "publish_at": 1620182352
-          },
-          {
-            "id": "3",
-            "direction": "",
-            "ingredient": "",
-            "image": "",
-            "name": "seven layer cake",
-            "publish_at": 1620187454
-          },
-          {
-            "id": "4",
-            "direction": "",
-            "ingredient": "",
-            "image": "",
-            "name": "yellow butter cake",
-            "publish_at": 1610182056
-          }
-    ],
       "categories":
     [
           {
@@ -152,8 +117,7 @@
             "price": 40,
             "product_detail": "",
             "size": "16cm x 16cm",
-            "subcategory_id": "1",
-            "recipe_id": "1"
+            "subcategory_id": "1"
           },
           {
             "id": "2",
@@ -161,8 +125,7 @@
             "price": 38,
             "product_detail": "",
             "size": "16cm x 16cm",
-            "subcategory_id": "3",
-            "recipe_id": "1"
+            "subcategory_id": "3"
           },
           {
             "id": "3",
@@ -170,8 +133,7 @@
             "price": 60,
             "product_detail": "",
             "size": "16cm x 16cm",
-            "subcategory_id": "3",
-            "recipe_id": "1"
+            "subcategory_id": "3"
           },
           {
             "id": "4",
@@ -179,8 +141,7 @@
             "price": 600,
             "product_detail": "",
             "size": "16cm x 16cm",
-            "subcategory_id": "2",
-            "recipe_id": "3"
+            "subcategory_id": "2"
           },
           {
             "id": "5",
@@ -188,8 +149,7 @@
             "price": 168,
             "product_detail": "",
             "size": "16cm x 16cm",
-            "subcategory_id": "2",
-            "recipe_id": "4"
+            "subcategory_id": "2"
           },
           {
             "id": "6",
@@ -197,8 +157,64 @@
             "price": 234,
             "product_detail": "",
             "size": "16cm x 16cm",
-            "subcategory_id": "4",
-            "recipe_id": "2"
+            "subcategory_id": "4"
+          }
+    ],
+      "recipes":
+    [
+          {
+            "id": "1",
+            "direction": "preheat oven to 350 degrees F(175 degrees C)...",
+            "ingredient": "2 sheets of puff pastry...",
+            "image": "",
+            "name": "matcha chocolate",
+            "publish_at": 1620182056,
+            "item_id": "1"
+          },
+          {
+            "id": "2",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "matcha bread",
+            "publish_at": 1620182352,
+            "item_id": "2"
+          },
+          {
+            "id": "3",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "seven layer cake",
+            "publish_at": 1620187454,
+            "item_id": "5"
+          },
+          {
+            "id": "4",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "yellow butter cake",
+            "publish_at": 1610182056,
+            "item_id": "4"
+          },
+          {
+            "id": "5",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "banana cake",
+            "publish_at": 1610232056,
+            "item_id": "3"
+          },
+          {
+            "id": "6",
+            "direction": "",
+            "ingredient": "",
+            "image": "",
+            "name": "seven layer cake",
+            "publish_at": 1610282056,
+            "item_id": "6"
           }
     ],
       "orders":
@@ -215,7 +231,7 @@
             "created_date": 1620095656,
             "total": 867,
             "status": "pending",
-            "user_id": "2"
+            "user_id": "4"
           },
           {
             "id": "3",
@@ -229,7 +245,7 @@
             "created_date": 1619145256,
             "total": 536,
             "status": "confirmed",
-            "user_id": "4"
+            "user_id": "2"
           },
           {
             "id": "5",

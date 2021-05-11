@@ -103,10 +103,10 @@ class Worker:
 if __name__ == '__main__':
     worker = Worker()
     worker.insert_default_users()
-    worker.insert_default_recipes()
     worker.insert_default_categories()
     worker.insert_default_subcategories()
     worker.insert_default_items()
+    worker.insert_default_recipes()
     worker.insert_default_orders()
     worker.insert_default_order_details()
     print("=" * 50, "Database migration completed", "=" * 50)

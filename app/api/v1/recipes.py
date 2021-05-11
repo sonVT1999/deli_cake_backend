@@ -8,17 +8,6 @@ from app.utils import send_result, send_error
 
 api = Blueprint('recipes', __name__)
 
-recipes = [
-    {'id': "1", 'title': "galette des rois recipe", 'publish at': "4:00PM 12/01/2021", 'category': "birthday cake",
-     'subcategory': "chiffon cake", 'ingredient': "", 'directions': "", 'image': ""},
-    {'id': "2", 'title': "easter dove cake", 'publish at': "5:00PM 13/01/2021", 'category': "birthday cake",
-     'subcategory': "key lime", 'ingredient': "", 'directions': "", 'image': ""},
-    {'id': "3", 'title': "seven layer cake", 'publish at': "6:00PM 14/01/2021", 'category': "dessert cake",
-     'subcategory': "pound cake", 'ingredient': "", 'directions': "", 'image': ""},
-    {'id': "4", 'title': "seven layer cake", 'publish at': "5:00PM 20/01/2021", 'category': "dessert cake",
-     'subcategory': "pound cake", 'ingredient': "", 'directions': "", 'image': ""}
-]
-
 
 @api.route('/', methods=["POST"])
 def create_recipe():
@@ -33,31 +22,58 @@ def create_recipe():
 
 @api.route('', methods=['GET'])
 def get_all():
-    all_recipe = [x.json() for x in models.Recipe.query.all()]
+    rs = []
+    query = (models.Recipe.query.join(models.Item, models.Recipe.item_id == models.Item.id)
+             .join(models.Subcategory, models.Subcategory.id == models.Item.subcategory_id)
+             .join(models.Category, models.Category.id == models.Subcategory.category_id)
+             .add_columns(models.Recipe.id, models.Recipe.name, models.Recipe.publish_at, models.Category.name,
+                          models.Subcategory.name)).all()
+    for i in query:
+        result = {'id': i[1], 'title': i[2], 'publish_at': i[3], 'category': i[4], 'subcategory': i[5]}
+        rs.append(result)
+    return send_result(data=rs)
 
 
 @api.route('/<string:input>', methods=['GET'])
 def get_by_id(input):
-    i = []
-    for data in recipes:
+    a = []
+    rs = []
+    query = (models.Recipe.query.join(models.Item, models.Recipe.id == models.Item.recipe_id)
+             .join(models.Subcategory, models.Subcategory.id == models.Item.subcategory_id)
+             .join(models.Category, models.Category.id == models.Subcategory.category_id)
+             .add_columns(models.Recipe.id, models.Recipe.name, models.Recipe.publish_at, models.Category.name,
+                          models.Subcategory.name)).all()
+    for i in query:
+        result = {'id': i[1], 'title': i[2], 'publish_at': i[3], 'category': i[4], 'subcategory': i[5]}
+        a.append(result)
+    for data in a:
         if data['id'] == input or data['title'] == input:
-            i.append(data)
-    return send_result(i)
+            rs.append(data)
+    return send_result(rs)
 
 
 @api.route('/cate/<string:category>', methods=['GET'])
 def get_by_category(category):
-    i = []
-    for data in recipes:
+    a = []
+    rs = []
+    query = (models.Recipe.query.join(models.Item, models.Recipe.id == models.Item.recipe_id)
+             .join(models.Subcategory, models.Subcategory.id == models.Item.subcategory_id)
+             .join(models.Category, models.Category.id == models.Subcategory.category_id)
+             .add_columns(models.Recipe.id, models.Recipe.name, models.Recipe.publish_at, models.Category.name,
+                          models.Subcategory.name)).all()
+    for i in query:
+        result = {'id': i[1], 'title': i[2], 'publish_at': i[3], 'category': i[4], 'subcategory': i[5]}
+        a.append(result)
+    for data in a:
         if data['category'] == category:
-            i.append(data)
-    return send_result(i)
+            rs.append(data)
+    return send_result(rs)
 
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
     _id = request.args.get('id', type=str)
-    item = models.Recipe.get_by_id(_id)
-    if item:
-        item.delete_to_db()
+    recipe = models.Recipe.get_by_id(_id)
+    if recipe:
+        recipe.delete_to_db()
     return send_result(message="deleted successfully!")
