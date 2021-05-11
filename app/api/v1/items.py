@@ -52,7 +52,7 @@ def put_by_id(_id):
     if item is None:
         send_error()
     else:
-        keys = ["name", "price", "product_detail", "size", "subcategory_id", "recipe_id"]
+        keys = ["name", "price", "product_detail", "size"]
         for key in keys:
             if key in data.keys():
                 setattr(item, key, data[key])
@@ -62,9 +62,8 @@ def put_by_id(_id):
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
-    # cách xóa khóa ngoại
+
     ids = request.args.getlist('ids', type=str)
-    print(ids)
     for i in ids:
         item = models.Item.find_by_id(i)
         if item:

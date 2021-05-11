@@ -7,19 +7,6 @@ from app.utils import send_result, send_error
 
 api = Blueprint('orders', __name__)
 
-orders = [
-    {'id': "1", 'total': 504, 'status': "completed", 'phone_number': "0123456789",
-     'Address': "Ha Noi"},
-    {'id': "2", 'total': 168, 'status': "pending", 'phone_number': "0123456789",
-     'address': "Hai Phong"},
-    {'id': "3", 'total': 257, 'status': "completed", 'phone_number': "0123456789",
-     'address': "Thai Binh"},
-    {'id': "4", 'total': 234, 'status': "confirmed", 'phone_number': "0123456789",
-     'address': "Ha Nam"},
-    {'id': "5", 'total': 856, 'status': "cancelled", 'phone_number': "0123456789",
-     'address': "Quang Ninh"}
-]
-
 
 @api.route('', methods=['GET'])
 def get_all():
@@ -59,9 +46,12 @@ def put_by_id(_id):
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
-    global orders
 
     ids = request.args.getlist('ids', type=str)
-    orders = [u for u in orders if u["id"] not in ids]
-
-    return send_result(orders)
+    for i in ids:
+        order = models.Order.find_by_id(i)
+        if order.status == "pending" or order.status == "confirmed":
+            return send_error(message="order not delete!")
+        if order:
+            order.delete_to_db()
+    return send_result(message="deleted successfully!")

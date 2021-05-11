@@ -1,5 +1,9 @@
-from flask import Blueprint, request
+import uuid
 
+from flask import Blueprint, request
+from flask_restful import reqparse
+
+from app import models
 from app.utils import send_result, send_error
 
 api = Blueprint('recipes', __name__)
@@ -18,18 +22,18 @@ recipes = [
 
 @api.route('/', methods=["POST"])
 def create_recipe():
-    data = request.get_json()
-    recipe = {**data}
-    recipes.append(recipe)
+    data = reqparse.request.get_json()
+    recipe = models.Recipe(id=str(uuid.uuid1()), **data)
     try:
-        return send_result(recipe)
+        recipe.save_to_db()
+        return send_result(recipe.json())
     except:
         return send_error()
 
 
 @api.route('', methods=['GET'])
 def get_all():
-    return send_result(data=recipes)
+    all_recipe = [x.json() for x in models.Recipe.query.all()]
 
 
 @api.route('/<string:input>', methods=['GET'])
@@ -52,9 +56,8 @@ def get_by_category(category):
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
-
-    global recipes
-    ids = request.args.getlist('ids', type=str)
-    recipes = [i for i in recipes if i["id"] not in ids]
-
-    return send_result(recipes)
+    _id = request.args.get('id', type=str)
+    item = models.Recipe.get_by_id(_id)
+    if item:
+        item.delete_to_db()
+    return send_result(message="deleted successfully!")

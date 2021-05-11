@@ -1,6 +1,6 @@
 # coding: utf-8
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 
 from app.extensions import db
 
@@ -151,7 +151,6 @@ class Item(db.Model):
         return rs
 
 
-
 class Order(db.Model):
     __tablename__ = 'orders'
 
@@ -160,6 +159,7 @@ class Order(db.Model):
     created_date = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(100), nullable=False)
     user_id = db.Column(ForeignKey(User.id), nullable=False)
+    order_detail = relationship("Order_detail", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'total': self.total, 'created_date': self.created_date,
@@ -176,6 +176,11 @@ class Order(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def delete_by_id(cls, _id):
+        rs = cls.query.filter_by(id=_id).first().order_detail
+        return rs
 
 
 class Order_detail(db.Model):
@@ -200,6 +205,7 @@ class Order_detail(db.Model):
     @classmethod
     def find_by_item_id(cls, _id):
         return cls.query.filter_by(item_id=_id).first()
+
 
 class Image(db.Model):
     __tablename__ = 'images'
