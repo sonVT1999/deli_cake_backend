@@ -23,8 +23,7 @@ def create_recipe():
 @api.route('', methods=['GET'])
 def get_all():
     rs = []
-    query = (models.Recipe.query.join(models.Item, models.Recipe.item_id == models.Item.id)
-             .join(models.Subcategory, models.Subcategory.id == models.Item.subcategory_id)
+    query = (models.Recipe.query.join(models.Subcategory, models.Subcategory.id == models.Recipe.subcategory_id)
              .join(models.Category, models.Category.id == models.Subcategory.category_id)
              .add_columns(models.Recipe.id, models.Recipe.name, models.Recipe.publish_at, models.Category.name,
                           models.Subcategory.name)).all()
@@ -38,8 +37,7 @@ def get_all():
 def get_by_id(input):
     a = []
     rs = []
-    query = (models.Recipe.query.join(models.Item, models.Recipe.id == models.Item.recipe_id)
-             .join(models.Subcategory, models.Subcategory.id == models.Item.subcategory_id)
+    query = (models.Recipe.query.join(models.Subcategory, models.Subcategory.id == models.Recipe.subcategory_id)
              .join(models.Category, models.Category.id == models.Subcategory.category_id)
              .add_columns(models.Recipe.id, models.Recipe.name, models.Recipe.publish_at, models.Category.name,
                           models.Subcategory.name)).all()
@@ -56,8 +54,7 @@ def get_by_id(input):
 def get_by_category(category):
     a = []
     rs = []
-    query = (models.Recipe.query.join(models.Item, models.Recipe.id == models.Item.recipe_id)
-             .join(models.Subcategory, models.Subcategory.id == models.Item.subcategory_id)
+    query = (models.Recipe.query.join(models.Subcategory, models.Subcategory.id == models.Recipe.subcategory_id)
              .join(models.Category, models.Category.id == models.Subcategory.category_id)
              .add_columns(models.Recipe.id, models.Recipe.name, models.Recipe.publish_at, models.Category.name,
                           models.Subcategory.name)).all()

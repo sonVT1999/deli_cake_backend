@@ -92,7 +92,6 @@ class Item(db.Model):
     size = db.Column(db.String(50))
     subcategory_id = db.Column(ForeignKey(Subcategory.id), nullable=False)
     order_detail = relationship("Order_detail", cascade="all, delete")
-    recipe = relationship("Recipe", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'price': self.price, 'product_detail': self.product_detail,
@@ -120,7 +119,7 @@ class Item(db.Model):
 
     @classmethod
     def delete_by_id(cls, _id):
-        rs = cls.query.filter_by(id=_id).first().order_detail.recipe
+        rs = cls.query.filter_by(id=_id).first().order_detail
         return rs
 
 
@@ -131,13 +130,12 @@ class Recipe(db.Model):
     name = db.Column(db.String(100), nullable=False)
     direction = db.Column(db.String(255))
     ingredient = db.Column(db.String(255))
-    image = db.Column(db.String(255))
     publish_at = db.Column(db.Integer, nullable=False)
-    item_id = db.Column(ForeignKey(Item.id))
+    subcategory_id = db.Column(ForeignKey(Subcategory.id), nullable=False)
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'direction': self.direction, 'ingredient': self.ingredient,
-                'image': self.image, 'publish_at': self.publish_at, 'item_id': self.item_id}
+                'publish_at': self.publish_at, 'subcategory_id': self.subcategory_id}
 
     def save_to_db(self):
         db.session.add(self)
@@ -208,8 +206,8 @@ class Order_detail(db.Model):
         return cls.query.filter_by(item_id=_id).first()
 
 
-class Image(db.Model):
-    __tablename__ = 'images'
+class Image_item(db.Model):
+    __tablename__ = 'images_item'
 
     id = db.Column(db.String(100), primary_key=True)
     name = db.Column(db.String(100))
@@ -217,6 +215,25 @@ class Image(db.Model):
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'item_id': self.item_id}
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Image_recipe(db.Model):
+    __tablename__ = 'images_recipe'
+
+    id = db.Column(db.String(100), primary_key=True)
+    name = db.Column(db.String(100))
+    recipe_id = db.Column(ForeignKey(Recipe.id), nullable=False)
+
+    def json(self):
+        return {'id': self.id, 'name': self.name, 'recipe_id': self.recipe_id}
 
     def save_to_db(self):
         db.session.add(self)

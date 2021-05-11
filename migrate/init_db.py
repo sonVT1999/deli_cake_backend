@@ -3,7 +3,7 @@ import json
 from flask import Flask
 
 from app.extensions import db
-from app.models import User, Order_detail, Order, Recipe, Subcategory, Category, Image, Item
+from app.models import User, Order_detail, Order, Recipe, Subcategory, Category, Image_item, Image_recipe, Item
 from app.settings import DevConfig
 
 CONFIG = DevConfig
@@ -90,10 +90,19 @@ class Worker:
             db.session.add(instance)
         db.session.commit()
 
-    def insert_default_images(self):
-        images = self.default_data.get('images', {})
-        for item in images:
-            instance = Image()
+    def insert_default_images_item(self):
+        images_item = self.default_data.get('images_item', {})
+        for item in images_item:
+            instance = Image_item()
+            for key in item.keys():
+                instance.__setattr__(key, item[key])
+            db.session.add(instance)
+        db.session.commit()
+
+    def insert_default_images_recipe(self):
+        images_recipe = self.default_data.get('images_recipe', {})
+        for item in images_recipe:
+            instance = Image_recipe()
             for key in item.keys():
                 instance.__setattr__(key, item[key])
             db.session.add(instance)
@@ -109,4 +118,6 @@ if __name__ == '__main__':
     worker.insert_default_recipes()
     worker.insert_default_orders()
     worker.insert_default_order_details()
+    worker.insert_default_images_item()
+    worker.insert_default_images_recipe()
     print("=" * 50, "Database migration completed", "=" * 50)
