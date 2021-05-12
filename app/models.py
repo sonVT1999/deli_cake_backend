@@ -32,6 +32,15 @@ class User(db.Model):
     def get_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
 
+    @classmethod
+    def get_all_detail(cls, _id):
+        rs = (cls.query.join(Order, cls.id == Order.user_id)
+              .join(Order_detail, Order.id == Order_detail.order_id)
+              .join(Item, Item.id == Order_detail.item_id)
+              .add_columns(Item.name, Order_detail.amount, Item.price)
+              .filter(cls.id == _id)).all()
+        return rs
+
 
 class Category(db.Model):
     __tablename__ = 'categories'
@@ -155,14 +164,18 @@ class Order(db.Model):
 
     id = db.Column(db.String(100), primary_key=True)
     total = db.Column(db.Float, nullable=False)
-    created_date = db.Column(db.Integer, nullable=False)
+    created_date = db.Column(db.Integer)
     status = db.Column(db.String(100), nullable=False)
+    voucher = db.Column(db.String(50))
+    tax = db.Column(db.String(50))
     user_id = db.Column(ForeignKey(User.id), nullable=False)
+    make_invoice = db.Column(db.Boolean(), nullable=False)
     order_detail = relationship("Order_detail", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'total': self.total, 'created_date': self.created_date,
-                'status': self.status, 'user_id': self.user_id}
+                'status': self.status, 'voucher': self.voucher, 'tax': self.user_id, 'make_invoice': self.make_invoice,
+                'user_id': self.user_id}
 
     def save_to_db(self):
         db.session.add(self)

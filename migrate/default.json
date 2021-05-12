@@ -1,341 +1,347 @@
 {
-    "users":
-    [
-          {
-            "id": "1",
-            "username": "son",
-            "password": "123",
-            "address": "Thái Bình",
-            "phone_number": "0987123734",
-            "email": "vuson212@gmail.com",
-            "is_admin": 1
-          },
-          {
-            "id": "2",
-            "username": "dat",
-            "password": "123",
-            "address": "Hà Nam",
-            "phone_number": "0987323734",
-            "email": "",
-            "is_admin": 1
-          },
-          {
-            "id": "3",
-            "username": "trong",
-            "password": "123",
-            "address": "Quảng Ninh",
-            "phone_number": "0237123734",
-            "email": "",
-            "is_admin": 0
-          },
-          {
-            "id": "4",
-            "username": "le",
-            "password": "123",
-            "address": "Hải Phòng",
-            "phone_number": "0987789789",
-            "email": "",
-            "is_admin": 0
-          },
-          {
-            "id": "5",
-            "username": "Hao",
-            "password": "123",
-            "address": "Quảng Bình",
-            "phone_number": "0237453734",
-            "email": "",
-            "is_admin": 0
-          }
-    ],
-      "categories":
-    [
-          {
-            "id": "1",
-            "name": "Birthday Cake"
-          },
-          {
-            "id": "2",
-            "name": "Cheese Cake"
-          },
-          {
-            "id": "3",
-            "name": "Dessert Cake"
-          },
-          {
-            "id": "4",
-            "name": "Bread"
-          }
-    ],
-      "subcategories":
-    [
-          {
-            "id": "1",
-            "name": "Chiffon Cake",
-            "category_id": "1"
-          },
-          {
-            "id": "2",
-            "name": "Pound Cake",
-            "category_id": "1"
-          },
-          {
-            "id": "3",
-            "name": "Fruit Cake",
-            "category_id": "2"
-          },
-          {
-            "id": "4",
-            "name": "Fudgy Chocolate",
-            "category_id": "2"
-          },
-          {
-            "id": "5",
-            "name": "Varrot Cake",
-            "category_id": "3"
-          },
-          {
-            "id": "6",
-            "name": "Chocolate Tarts",
-            "category_id": "3"
-          },
-          {
-            "id": "7",
-            "name": "Rye Bread",
-            "category_id": "4"
-          },
-          {
-            "id": "8",
-            "name": "Pita Bread",
-            "category_id": "4"
-          }
-    ],
-      "items":
-    [
-          {
-            "id": "1",
-            "name": "matcha cheese cake",
-            "price": 40,
-            "product_detail": "",
-            "size": "16cm x 16cm",
-            "subcategory_id": "1"
-          },
-          {
-            "id": "2",
-            "name": "baked flourless cake",
-            "price": 38,
-            "product_detail": "",
-            "size": "16cm x 16cm",
-            "subcategory_id": "3"
-          },
-          {
-            "id": "3",
-            "name": "unbaked flourless cake",
-            "price": 60,
-            "product_detail": "",
-            "size": "16cm x 16cm",
-            "subcategory_id": "3"
-          },
-          {
-            "id": "4",
-            "name": "matcha chocolate",
-            "price": 600,
-            "product_detail": "",
-            "size": "16cm x 16cm",
-            "subcategory_id": "2"
-          },
-          {
-            "id": "5",
-            "name": "yellow butter cake",
-            "price": 168,
-            "product_detail": "",
-            "size": "16cm x 16cm",
-            "subcategory_id": "2"
-          },
-          {
-            "id": "6",
-            "name": "petite madeleine",
-            "price": 234,
-            "product_detail": "",
-            "size": "16cm x 16cm",
-            "subcategory_id": "4"
-          }
-    ],
-      "recipes":
-    [
-          {
-            "id": "1",
-            "direction": "preheat oven to 350 degrees F(175 degrees C)...",
-            "ingredient": "2 sheets of puff pastry...",
-            "name": "matcha chocolate",
-            "publish_at": 1620182056,
-            "subcategory_id": "1"
-          },
-          {
-            "id": "2",
-            "direction": "",
-            "ingredient": "",
-            "name": "matcha bread",
-            "publish_at": 1620182352,
-            "subcategory_id": "2"
-          },
-          {
-            "id": "3",
-            "direction": "",
-            "ingredient": "",
-            "name": "seven layer cake",
-            "publish_at": 1620187454,
-            "subcategory_id": "5"
-          },
-          {
-            "id": "4",
-            "direction": "",
-            "ingredient": "",
-            "name": "yellow butter cake",
-            "publish_at": 1610182056,
-            "subcategory_id": "4"
-          },
-          {
-            "id": "5",
-            "direction": "",
-            "ingredient": "",
-            "name": "banana cake",
-            "publish_at": 1610232056,
-            "subcategory_id": "3"
-          },
-          {
-            "id": "6",
-            "direction": "",
-            "ingredient": "",
-            "name": "three mango cake",
-            "publish_at": 1610282056,
-            "subcategory_id": "6"
-          }
-    ],
-      "orders":
-    [
-          {
-            "id": "1",
-            "created_date": 1620182056,
-            "total": 234,
-            "status": "completed",
-            "user_id": "1"
-          },
-          {
-            "id": "2",
-            "created_date": 1620095656,
-            "total": 867,
-            "status": "pending",
-            "user_id": "4"
-          },
-          {
-            "id": "3",
-            "created_date": 1617503656,
-            "total": 2354,
-            "status": "completed",
-            "user_id": "3"
-          },
-          {
-            "id": "4",
-            "created_date": 1619145256,
-            "total": 536,
-            "status": "confirmed",
-            "user_id": "2"
-          },
-          {
-            "id": "5",
-            "created_date": 1617244456,
-            "total": 1535,
-            "status": "cancelled",
-            "user_id": "5"
-          }
-    ],
-      "order_details":
-    [
-          {
-            "id": "1",
-            "order_id": "1",
-            "item_id": "1",
-            "amount": 3
-          },
-          {
-            "id": "2",
-            "order_id": "2",
-            "item_id": "3",
-            "amount": 2
-          },
-          {
-            "id": "3",
-            "order_id": "3",
-            "item_id": "6",
-            "amount": 1
-          },
-          {
-            "id": "4",
-            "order_id": "1",
-            "item_id": "4",
-            "amount": 1
-          },
-          {
-            "id": "5",
-            "order_id": "4",
-            "item_id": "2",
-            "amount": 4
-          }
-    ],
-      "images_item":
-    [
-          {
-            "id": "1",
-            "name": "",
-            "item_id": "1"
-          },
-          {
-            "id": "2",
-            "name": "",
-            "item_id": "1"
-          },
-          {
-            "id": "3",
-            "name": "",
-            "item_id": "2"
-          },
-          {
-            "id": "4",
-            "name": "",
-            "item_id": "3"
-          },
-          {
-            "id": "5",
-            "name": "",
-            "item_id": "4"
-          }
-    ],
-       "images_recipe":
-    [
-          {
-            "id": "1",
-            "name": "",
-            "recipe_id": "1"
-          },
-          {
-            "id": "2",
-            "name": "",
-            "recipe_id": "2"
-          },
-          {
-            "id": "3",
-            "name": "",
-            "recipe_id": "2"
-          },
-          {
-            "id": "4",
-            "name": "",
-            "recipe_id": "3"
-          },
-          {
-            "id": "5",
-            "name": "",
-            "recipe_id": "4"
-          }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "username": "son",
+      "password": "123",
+      "address": "Thái Bình",
+      "phone_number": "0987123734",
+      "email": "vuson212@gmail.com",
+      "is_admin": 1
+    },
+    {
+      "id": "2",
+      "username": "dat",
+      "password": "123",
+      "address": "Hà Nam",
+      "phone_number": "0987323734",
+      "email": null,
+      "is_admin": 1
+    },
+    {
+      "id": "3",
+      "username": "trong",
+      "password": "123",
+      "address": "Quảng Ninh",
+      "phone_number": "0237123734",
+      "email": null,
+      "is_admin": 0
+    },
+    {
+      "id": "4",
+      "username": "le",
+      "password": "123",
+      "address": "Hải Phòng",
+      "phone_number": "0987789789",
+      "email": null,
+      "is_admin": 0
+    },
+    {
+      "id": "5",
+      "username": "Hao",
+      "password": "123",
+      "address": "Quảng Bình",
+      "phone_number": "0237453734",
+      "email": null,
+      "is_admin": 0
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Birthday Cake"
+    },
+    {
+      "id": "2",
+      "name": "Cheese Cake"
+    },
+    {
+      "id": "3",
+      "name": "Dessert Cake"
+    },
+    {
+      "id": "4",
+      "name": "Bread"
+    }
+  ],
+  "subcategories": [
+    {
+      "id": "1",
+      "name": "Chiffon Cake",
+      "category_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Pound Cake",
+      "category_id": "1"
+    },
+    {
+      "id": "3",
+      "name": "Fruit Cake",
+      "category_id": "2"
+    },
+    {
+      "id": "4",
+      "name": "Fudgy Chocolate",
+      "category_id": "2"
+    },
+    {
+      "id": "5",
+      "name": "Varrot Cake",
+      "category_id": "3"
+    },
+    {
+      "id": "6",
+      "name": "Chocolate Tarts",
+      "category_id": "3"
+    },
+    {
+      "id": "7",
+      "name": "Rye Bread",
+      "category_id": "4"
+    },
+    {
+      "id": "8",
+      "name": "Pita Bread",
+      "category_id": "4"
+    }
+  ],
+  "items": [
+    {
+      "id": "1",
+      "name": "matcha cheese cake",
+      "price": 40,
+      "product_detail": null,
+      "size": "16cm x 16cm",
+      "subcategory_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "baked flourless cake",
+      "price": 38,
+      "product_detail": null,
+      "size": "16cm x 16cm",
+      "subcategory_id": "3"
+    },
+    {
+      "id": "3",
+      "name": "unbaked flourless cake",
+      "price": 60,
+      "product_detail": null,
+      "size": "16cm x 16cm",
+      "subcategory_id": "3"
+    },
+    {
+      "id": "4",
+      "name": "matcha chocolate",
+      "price": 600,
+      "product_detail": null,
+      "size": "16cm x 16cm",
+      "subcategory_id": "2"
+    },
+    {
+      "id": "5",
+      "name": "yellow butter cake",
+      "price": 168,
+      "product_detail": null,
+      "size": "16cm x 16cm",
+      "subcategory_id": "2"
+    },
+    {
+      "id": "6",
+      "name": "petite madeleine",
+      "price": 234,
+      "product_detail": null,
+      "size": "16cm x 16cm",
+      "subcategory_id": "4"
+    }
+  ],
+  "recipes": [
+    {
+      "id": "1",
+      "direction": "preheat oven to 350 degrees F(175 degrees C)...",
+      "ingredient": "2 sheets of puff pastry...",
+      "name": "matcha chocolate",
+      "publish_at": 1620182056,
+      "subcategory_id": "1"
+    },
+    {
+      "id": "2",
+      "direction": null,
+      "ingredient": null,
+      "name": "matcha bread",
+      "publish_at": 1620182352,
+      "subcategory_id": "2"
+    },
+    {
+      "id": "3",
+      "direction": null,
+      "ingredient": null,
+      "name": "seven layer cake",
+      "publish_at": 1620187454,
+      "subcategory_id": "5"
+    },
+    {
+      "id": "4",
+      "direction": null,
+      "ingredient": null,
+      "name": "yellow butter cake",
+      "publish_at": 1610182056,
+      "subcategory_id": "4"
+    },
+    {
+      "id": "5",
+      "direction": null,
+      "ingredient": null,
+      "name": "banana cake",
+      "publish_at": 1610232056,
+      "subcategory_id": "3"
+    },
+    {
+      "id": "6",
+      "direction": null,
+      "ingredient": null,
+      "name": "three mango cake",
+      "publish_at": 1610282056,
+      "subcategory_id": "6"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "created_date": 1620182056,
+      "total": 234,
+      "status": "completed",
+      "voucher": "10%",
+      "tax": null,
+      "make_invoice": 1,
+      "user_id": "1"
+    },
+    {
+      "id": "2",
+      "created_date": null,
+      "total": 867,
+      "status": "pending",
+      "voucher": "",
+      "tax": null,
+      "make_invoice": 0,
+      "user_id": "4"
+    },
+    {
+      "id": "3",
+      "created_date": 1617503656,
+      "total": 2354,
+      "status": "completed",
+      "voucher": "10%",
+      "tax": null,
+      "make_invoice": 1,
+      "user_id": "3"
+    },
+    {
+      "id": "4",
+      "created_date": null,
+      "total": 536,
+      "status": "confirmed",
+      "voucher": "",
+      "tax": null,
+      "make_invoice": 0,
+      "user_id": "2"
+    },
+    {
+      "id": "5",
+      "created_date": 1617244456,
+      "total": 1535,
+      "status": "cancelled",
+      "voucher": "10%",
+      "tax": "5%",
+      "make_invoice": 1,
+      "user_id": "5"
+    }
+  ],
+  "order_details": [
+    {
+      "id": "1",
+      "order_id": "1",
+      "item_id": "1",
+      "amount": 3
+    },
+    {
+      "id": "2",
+      "order_id": "2",
+      "item_id": "3",
+      "amount": 2
+    },
+    {
+      "id": "3",
+      "order_id": "3",
+      "item_id": "6",
+      "amount": 1
+    },
+    {
+      "id": "4",
+      "order_id": "1",
+      "item_id": "4",
+      "amount": 1
+    },
+    {
+      "id": "5",
+      "order_id": "4",
+      "item_id": "2",
+      "amount": 4
+    }
+  ],
+  "images_item": [
+    {
+      "id": "1",
+      "name": "",
+      "item_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "",
+      "item_id": "1"
+    },
+    {
+      "id": "3",
+      "name": "",
+      "item_id": "2"
+    },
+    {
+      "id": "4",
+      "name": "",
+      "item_id": "3"
+    },
+    {
+      "id": "5",
+      "name": "",
+      "item_id": "4"
+    }
+  ],
+  "images_recipe": [
+    {
+      "id": "1",
+      "name": "",
+      "recipe_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "",
+      "recipe_id": "2"
+    },
+    {
+      "id": "3",
+      "name": "",
+      "recipe_id": "2"
+    },
+    {
+      "id": "4",
+      "name": "",
+      "recipe_id": "3"
+    },
+    {
+      "id": "5",
+      "name": "",
+      "recipe_id": "4"
+    }
+  ]
 }

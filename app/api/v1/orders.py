@@ -36,7 +36,7 @@ def put_by_id(_id):
     if order is None:
         send_error()
     else:
-        keys = ["total", "created_date", "status", "user_id"]
+        keys = ["total", "created_date", "status", "user_id", "voucher", "tax", "make_invoice"]
         for key in keys:
             if key in data.keys():
                 setattr(order, key, data[key])
