@@ -1,6 +1,6 @@
 import uuid
 
-from flask import Blueprint, request
+from flask import Blueprint
 from flask_restful import reqparse
 
 from app import models
@@ -54,7 +54,7 @@ api = Blueprint('users', __name__)
 # ]
 
 @api.route('/', methods=["POST"])
-def create_recipe():
+def create_user():
     data = reqparse.request.get_json()
     user = models.User(id=str(uuid.uuid1()), **data)
     try:
@@ -91,26 +91,5 @@ def get_by_name(input):
 
     for data in all_user:
         if data['username'] == input:
-            a.append(data)
-    return send_result(a)
-
-
-@api.route('/date', methods=['GET'])
-def get_by_date():
-    a = []
-    rs = []
-    query = (models.User.query.join(models.Order, models.User.id == models.Order.user_id)
-             .join(models.Order_detail, models.Order.id == models.Order_detail.order_id)
-             .join(models.Item, models.Item.id == models.Order_detail.item_id)
-             .add_columns(models.User.id, models.User.username, models.User.address, models.User.phone_number,
-                          models.User.email, models.Item.name, models.Order_detail.amount, models.Item.price)).all()
-    for i in query:
-        result = {'id': i[1], 'name': i[2], 'address': i[3], 'phone_number': i[4], 'email': i[5],
-                  'items': {'description': i[6], 'amount': i[7], 'price': i[8], 'total': (i[7] * i[8])}}
-        rs.append(result)
-    start = request.args.get('start', 1617210000, type=int)
-    end = request.args.get('end', 1619715600, type=int)
-    for data in rs:
-        if data['created'] >= start and data['created'] <= end:
             a.append(data)
     return send_result(a)

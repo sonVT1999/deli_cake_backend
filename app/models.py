@@ -158,6 +158,14 @@ class Recipe(db.Model):
     def get_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
 
+    @classmethod
+    def get_all_recipes(cls):
+        rs = (cls.query.join(Subcategory, Subcategory.id == cls.subcategory_id)
+              .join(Category, Category.id == Subcategory.category_id)
+              .add_columns(cls.id, cls.name, cls.publish_at, Category.name,
+                           Subcategory.name)).all()
+        return rs
+
 
 class Order(db.Model):
     __tablename__ = 'orders'

@@ -1,3 +1,5 @@
+from datetime import date
+
 from flask import Blueprint, request
 from flask_restful import reqparse
 
@@ -41,12 +43,13 @@ def put_by_id(_id):
             if key in data.keys():
                 setattr(order, key, data[key])
         db.session.commit()
+    # if order["make_invoice"] == 1:
+    #     set(order["created_date"] == date.today())
     return send_result(order.json())
 
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
-
     ids = request.args.getlist('ids', type=str)
     for i in ids:
         order = models.Order.find_by_id(i)
@@ -55,3 +58,19 @@ def delete_by_id():
         if order:
             order.delete_to_db()
     return send_result(message="deleted successfully!")
+
+
+@api.route('/date', methods=['GET'])
+def get_by_date():
+    a = []
+    all_order = [x.json() for x in models.Order.query.all()]
+    for data in all_order:
+        data["user"] = models.User.get_by_id(data['user_id']).json()
+    start = request.args.get('start', 1617210000, type=int)
+    end = request.args.get('end', 1619715600, type=int)
+
+    for data in all_order:
+        if data['created_date'] >= start:
+            if data['created_date'] <= end:
+                a.append(data)
+    return send_result(a)

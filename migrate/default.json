@@ -219,7 +219,7 @@
     },
     {
       "id": "2",
-      "created_date": null,
+      "created_date": 0,
       "total": 867,
       "status": "pending",
       "voucher": "",
@@ -239,7 +239,7 @@
     },
     {
       "id": "4",
-      "created_date": null,
+      "created_date": 0,
       "total": 536,
       "status": "confirmed",
       "voucher": "",
