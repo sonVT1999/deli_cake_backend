@@ -83,10 +83,12 @@ def register_blueprints(app):
     app.register_blueprint(api_v1.auth.api, url_prefix='/api/v1/auth')
     app.register_blueprint(api_v1.items.api, url_prefix='/api/v1/items')
     app.register_blueprint(api_v1.orders.api, url_prefix='/api/v1/orders')
+    app.register_blueprint(api_v1.orders_details.api, url_prefix='/api/v1/orders_details')
     app.register_blueprint(api_v1.categories.api, url_prefix='/api/v1/categories')
     app.register_blueprint(api_v1.subcategories.api, url_prefix='/api/v1/subcategories')
     app.register_blueprint(api_v1.recipes.api, url_prefix='/api/v1/recipes')
     app.register_blueprint(api_v1.users.api, url_prefix='/api/v1/users')
+    app.register_blueprint(api_v1.images_items.api, url_prefix='/api/v1/images_items')
 
 
 

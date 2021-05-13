@@ -1,4 +1,5 @@
-from datetime import date
+import time
+import uuid
 
 from flask import Blueprint, request
 from flask_restful import reqparse
@@ -19,6 +20,17 @@ def get_all():
     return send_result(all_order)
 
 
+@api.route('/', methods=["POST"])
+def create_order():
+    data = reqparse.request.get_json()
+    order = models.Order(id=str(uuid.uuid1()), **data)
+    try:
+        order.save_to_db()
+        return send_result(order.json())
+    except:
+        return send_error()
+
+
 @api.route('/stt/<string:status>', methods=['GET'])
 def get_by_stt(status):
     rs = []
@@ -31,20 +43,20 @@ def get_by_stt(status):
 
 
 @api.route('/<int:_id>', methods=['PUT'])
-def put_by_id(_id):
+def put_status(_id):
     data = reqparse.request.get_json()
 
     order = models.Order.find_by_id(_id)
     if order is None:
         send_error()
     else:
-        keys = ["total", "created_date", "status", "user_id", "voucher", "tax", "make_invoice"]
-        for key in keys:
-            if key in data.keys():
-                setattr(order, key, data[key])
+        order.status = data['status']
+
+        # keys = ["status", "make_invoice", "created_date"]
+        # for key in keys:
+        #     if key in data.keys():
+        #         setattr(order, key, data[key])
         db.session.commit()
-    # if order["make_invoice"] == 1:
-    #     set(order["created_date"] == date.today())
     return send_result(order.json())
 
 
@@ -74,3 +86,17 @@ def get_by_date():
             if data['created_date'] <= end:
                 a.append(data)
     return send_result(a)
+
+
+@api.route('/make_invoice/<int:_id>', methods=['PUT'])
+def put_make_invoice(_id):
+    data = reqparse.request.get_json()
+
+    order = models.Order.find_by_id(_id)
+    if order is None:
+        send_error()
+    else:
+        order.make_invoice = data['make_invoice']
+        order.created_date = time.time()
+        db.session.commit()
+    return send_result(order.json())

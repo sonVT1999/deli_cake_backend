@@ -213,7 +213,7 @@
       "total": 234,
       "status": "completed",
       "voucher": "10%",
-      "tax": null,
+      "tax": "0",
       "make_invoice": 1,
       "user_id": "1"
     },
@@ -222,8 +222,8 @@
       "created_date": 0,
       "total": 867,
       "status": "pending",
-      "voucher": "",
-      "tax": null,
+      "voucher": "0",
+      "tax": "0",
       "make_invoice": 0,
       "user_id": "4"
     },
@@ -233,7 +233,7 @@
       "total": 2354,
       "status": "completed",
       "voucher": "10%",
-      "tax": null,
+      "tax": "0",
       "make_invoice": 1,
       "user_id": "3"
     },
@@ -242,8 +242,8 @@
       "created_date": 0,
       "total": 536,
       "status": "confirmed",
-      "voucher": "",
-      "tax": null,
+      "voucher": "0",
+      "tax": "0",
       "make_invoice": 0,
       "user_id": "2"
     },

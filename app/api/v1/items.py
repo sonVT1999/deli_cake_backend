@@ -27,6 +27,7 @@ def get_all():
 
     for data in all_item:
         data["subcategory"] = models.Subcategory.get_by_id(data['subcategory_id']).json()
+        data["images_items"] = [x.json() for x in models.Image_item.get_by_id_item(data['id'])]
 
     for data in all_item:
         data["category"] = models.Category.get_by_id(data['subcategory']['category_id']).json()
@@ -37,8 +38,15 @@ def get_all():
 @api.route('/<string:input>', methods=['GET'])
 def search_by_id(input):
     item = []
-    x = [x.json() for x in models.Item.query.all()]
-    for data in x:
+    all_item = [x.json() for x in models.Item.query.all()]
+
+    for data in all_item:
+        data["subcategory"] = models.Subcategory.get_by_id(data['subcategory_id']).json()
+        data["images_items"] = [x.json() for x in models.Image_item.get_by_id_item(data['id'])]
+
+    for data in all_item:
+        data["category"] = models.Category.get_by_id(data['subcategory']['category_id']).json()
+    for data in all_item:
         if data['id'] == input or data['name'] == input:
             item.append(data)
     return send_result(item)
@@ -52,7 +60,7 @@ def put_by_id(_id):
     if item is None:
         send_error()
     else:
-        keys = ["name", "price", "product_detail", "size"]
+        keys = ["name", "price", "product_detail", "size", "subcategory"]
         for key in keys:
             if key in data.keys():
                 setattr(item, key, data[key])

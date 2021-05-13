@@ -37,8 +37,15 @@ class User(db.Model):
         rs = (cls.query.join(Order, cls.id == Order.user_id)
               .join(Order_detail, Order.id == Order_detail.order_id)
               .join(Item, Item.id == Order_detail.item_id)
-              .add_columns(Item.name, Order_detail.amount, Item.price)
+              .add_columns(Item.id, Item.name, Order_detail.amount, Item.price, Order.total)
               .filter(cls.id == _id)).all()
+        return rs
+
+    @classmethod
+    def get_all_user(cls):
+        rs = (cls.query.join(Order, cls.id == Order.user_id)
+              .add_columns(cls.id, cls.username, cls.phone_number, cls.email, Order.total, Order.voucher, Order.tax)
+              .all())
         return rs
 
 
@@ -244,6 +251,10 @@ class Image_item(db.Model):
     def delete_to_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def get_by_id_item(cls, _id):
+        return cls.query.filter_by(item_id=_id).all()
 
 
 class Image_recipe(db.Model):
