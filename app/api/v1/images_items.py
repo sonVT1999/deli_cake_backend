@@ -36,7 +36,7 @@ def upload_file():
 @api.route('/create_image/', methods=["POST"])
 def create_item():
     data = reqparse.request.get_json()
-    image = models.Image_item(id=str(uuid.uuid1()), name=(enums.SAVE_IMAGE_ITEM, data['name']), item_id=data['item_id'])
+    image = models.Image_item(id=str(uuid.uuid1()), name=os.path.join(enums.SAVE_IMAGE_ITEM, data['name']), item_id=data['item_id'])
     try:
         image.save_to_db()
         return send_result(image.json())
