@@ -39,6 +39,8 @@ def get_by_id(input):
     a = []
     for data in all_order:
         if data['id'] == input:
+            if data['status'] == "pending" or data['status'] == "confirmed":
+                data['created_date'] = time.time()
             a.append(data)
     return send_result(a)
 
