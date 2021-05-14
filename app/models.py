@@ -38,14 +38,14 @@ class User(db.Model):
               .join(Order_detail, Order.id == Order_detail.order_id)
               .join(Item, Item.id == Order_detail.item_id)
               .add_columns(Item.id, Item.name, Order_detail.amount, Item.price, Order.total)
-              .filter(cls.id == _id)).all()
+              .filter(Order.id == _id)).all()
         return rs
 
     @classmethod
     def get_all_user(cls):
         rs = (cls.query.join(Order, cls.id == Order.user_id)
-              .add_columns(cls.id, cls.username, cls.phone_number, cls.email, Order.total, Order.voucher, Order.tax)
-              .all())
+              .add_columns(cls.id, Order.id, cls.username, cls.phone_number, cls.email, Order.total, Order.voucher,
+                           Order.tax).all())
         return rs
 
 

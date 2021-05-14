@@ -77,29 +77,3 @@ def get_all():
     return send_result(data=all_user)
 
 
-@api.route('/<string:input>', methods=['GET'])
-def get_by_name(input):
-    # get user
-    all_user = []
-    query = models.User.get_all_user()
-    for i in query:
-        result = {'id': i[1], 'name': i[2], 'phone_number': i[3], 'email': i[4], 'total': i[5], 'voucher': i[6],
-                  'tax': i[7]}
-        all_user.append(result)
-
-    # get order for user
-    for data in all_user:
-        rs = []
-        query = models.User.get_all_detail(data['id'])
-        for i in query:
-            result = {'id': i[1], 'description': i[2], 'amount': i[3], 'price': i[4], 'total': (i[3] * i[4])}
-            rs.append(result)
-        data["items"] = rs
-
-    # get order user by id_user or name_user
-    a = []
-    for data in all_user:
-        if data['name'] == input or data['id'] == input:
-            a.append(data)
-    print(a)
-    return send_result(a)

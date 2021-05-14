@@ -20,6 +20,29 @@ def get_all():
     return send_result(all_order)
 
 
+@api.route('/<string:input>', methods=['GET'])
+def get_by_id(input):
+    all_order = [x.json() for x in models.Order.query.all()]
+    for data in all_order:
+        data["user"] = models.User.get_by_id(data['user_id']).json()
+
+    # get order for user
+    for data in all_order:
+        rs = []
+        query = models.User.get_all_detail(data['id'])
+        for i in query:
+            result = {'id': i[1], 'description': i[2], 'amount': i[3], 'price': i[4], 'total': (i[3] * i[4])}
+            rs.append(result)
+        data["items"] = rs
+
+    # get order user by id_user or name_user
+    a = []
+    for data in all_order:
+        if data['id'] == input:
+            a.append(data)
+    return send_result(a)
+
+
 @api.route('/', methods=["POST"])
 def create_order():
     data = reqparse.request.get_json()
@@ -50,12 +73,12 @@ def put_status(_id):
     if order is None:
         send_error()
     else:
-        order.status = data['status']
+        # order.status = data['status']
 
-        # keys = ["status", "make_invoice", "created_date"]
-        # for key in keys:
-        #     if key in data.keys():
-        #         setattr(order, key, data[key])
+        keys = ["status", "created_date"]
+        for key in keys:
+            if key in data.keys():
+                setattr(order, key, data[key])
         db.session.commit()
     return send_result(order.json())
 
@@ -98,5 +121,6 @@ def put_make_invoice(_id):
     else:
         order.make_invoice = data['make_invoice']
         order.created_date = time.time()
+        order.status = "completed"
         db.session.commit()
     return send_result(order.json())
