@@ -1,23 +1,9 @@
-import uuid
-
 from flask import Blueprint, request
-from flask_restful import reqparse
 
 from app import models
-from app.utils import send_result, send_error
+from app.utils import send_result
 
 api = Blueprint('recipes', __name__)
-
-
-@api.route('/', methods=["POST"])
-def create_recipe():
-    data = reqparse.request.get_json()
-    recipe = models.Recipe(id=str(uuid.uuid1()), **data)
-    try:
-        recipe.save_to_db()
-        return send_result(recipe.json())
-    except:
-        return send_error()
 
 
 @api.route('', methods=['GET'])
@@ -25,7 +11,7 @@ def get_all():
     result = []
     query = models.Recipe.get_all_recipes()
     for i in query:
-        rs = {'id': i[1], 'title': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
+        rs = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
               'subcategory_id': i[6], 'subcategory': i[7]}
         result.append(rs)
 
@@ -41,7 +27,7 @@ def get_by_id(input):
     result = []
     query = models.Recipe.get_all_recipes()
     for i in query:
-        rs = {'id': i[1], 'title': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
+        rs = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
               'subcategory_id': i[6], 'subcategory': i[7]}
         result.append(rs)
 
@@ -76,7 +62,7 @@ def get_by_category(category):
     rs = []
     query = models.Recipe.get_all_recipes()
     for i in query:
-        result = {'id': i[1], 'title': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
+        result = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
                   'subcategory_id': i[6], 'subcategory': i[7]}
         a.append(result)
     for data in a:

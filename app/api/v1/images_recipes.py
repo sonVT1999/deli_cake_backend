@@ -2,6 +2,7 @@ import os
 import uuid
 
 from flask import Blueprint, request
+from flask_restful import reqparse
 from werkzeug.utils import secure_filename
 
 from app import enums, models
@@ -17,7 +18,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@api.route('/<string:recipe_id>', methods=['GET', 'POST'])
 def upload_file(recipe_id):
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -35,3 +35,18 @@ def upload_file(recipe_id):
                 return send_result(image.json(), message="upload successfully!")
             except:
                 return send_error()
+
+
+@api.route('/', methods=["POST"])
+def create_recipe():
+    data = reqparse.request.get_json()
+    recipe = models.Recipe(id=str(uuid.uuid1()), image=upload_file(id), **data)
+
+    try:
+        recipe.save_to_db()
+        return send_result(recipe.json(), message="upload successfully!")
+    except:
+        return send_error()
+
+
+

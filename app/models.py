@@ -108,6 +108,7 @@ class Item(db.Model):
     size = db.Column(db.String(50))
     subcategory_id = db.Column(ForeignKey(Subcategory.id), nullable=False)
     order_detail = relationship("Order_detail", cascade="all, delete")
+    recipe = relationship("Recipe", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'price': self.price, 'product_detail': self.product_detail,
@@ -151,15 +152,14 @@ class Recipe(db.Model):
     __tablename__ = 'recipes'
 
     id = db.Column(db.String(100), primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
     direction = db.Column(db.String(255))
     ingredient = db.Column(db.String(255))
     publish_at = db.Column(db.Integer, nullable=False)
-    subcategory_id = db.Column(ForeignKey(Subcategory.id), nullable=False)
+    item_id = db.Column(ForeignKey(Item.id), nullable=False)
 
     def json(self):
-        return {'id': self.id, 'name': self.name, 'direction': self.direction, 'ingredient': self.ingredient,
-                'publish_at': self.publish_at, 'subcategory_id': self.subcategory_id}
+        return {'id': self.id, 'direction': self.direction, 'ingredient': self.ingredient,
+                'publish_at': self.publish_at, 'item_id': self.item_id}
 
     def save_to_db(self):
         db.session.add(self)
@@ -175,9 +175,10 @@ class Recipe(db.Model):
 
     @classmethod
     def get_all_recipes(cls):
-        rs = (cls.query.join(Subcategory, Subcategory.id == cls.subcategory_id)
+        rs = (cls.query.join(Item, Item.id == cls.item_id)
+              .join(Subcategory, Subcategory.id == Item.subcategory_id)
               .join(Category, Category.id == Subcategory.category_id)
-              .add_columns(cls.id, cls.name, cls.publish_at, Category.id, Category.name, Subcategory.id,
+              .add_columns(cls.id, Item.name, cls.publish_at, Category.id, Category.name, Subcategory.id,
                            Subcategory.name)).all()
         return rs
 

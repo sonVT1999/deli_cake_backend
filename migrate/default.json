@@ -161,49 +161,43 @@
       "id": "1",
       "direction": "preheat oven to 350 degrees F(175 degrees C)...",
       "ingredient": "2 sheets of puff pastry...",
-      "name": "matcha chocolate",
       "publish_at": 1620182056,
-      "subcategory_id": "1"
+      "item_id": "1"
     },
     {
       "id": "2",
       "direction": null,
       "ingredient": null,
-      "name": "matcha bread",
       "publish_at": 1620182352,
-      "subcategory_id": "2"
+      "item_id": "2"
     },
     {
       "id": "3",
       "direction": null,
       "ingredient": null,
-      "name": "seven layer cake",
       "publish_at": 1620187454,
-      "subcategory_id": "5"
+      "item_id": "5"
     },
     {
       "id": "4",
       "direction": null,
       "ingredient": null,
-      "name": "yellow butter cake",
       "publish_at": 1610182056,
-      "subcategory_id": "4"
+      "item_id": "4"
     },
     {
       "id": "5",
       "direction": null,
       "ingredient": null,
-      "name": "banana cake",
       "publish_at": 1610232056,
-      "subcategory_id": "3"
+      "item_id": "3"
     },
     {
       "id": "6",
       "direction": null,
       "ingredient": null,
-      "name": "three mango cake",
       "publish_at": 1610282056,
-      "subcategory_id": "6"
+      "item_id": "6"
     }
   ],
   "orders": [

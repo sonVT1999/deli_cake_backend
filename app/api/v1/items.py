@@ -10,17 +10,6 @@ from app.utils import send_result, send_error
 api = Blueprint('items', __name__)
 
 
-@api.route('/', methods=["POST"])
-def create_item():
-    data = reqparse.request.get_json()
-    item = models.Item(id=str(uuid.uuid1()), **data)
-    try:
-        item.save_to_db()
-        return send_result(item.json())
-    except:
-        return send_error()
-
-
 @api.route('', methods=['GET'])
 def get_all():
     result = []
