@@ -9,7 +9,7 @@ from app.utils import send_result, send_error
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-api = Blueprint('images_items', __name__)
+api = Blueprint('images_recipes', __name__)
 
 
 def allowed_file(filename):
@@ -17,8 +17,8 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@api.route('/<string:item_id>', methods=['GET', 'POST'])
-def upload_file(item_id):
+@api.route('/<string:recipe_id>', methods=['GET', 'POST'])
+def upload_file(recipe_id):
     if request.method == 'POST':
         if 'file' not in request.files:
             return send_error()
@@ -27,9 +27,9 @@ def upload_file(item_id):
             return send_error()
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(enums.UPLOAD_FOLDER, filename))
-            image = models.Image_item(id=str(uuid.uuid1()), name=os.path.join(enums.SAVE_IMAGE_ITEM, filename),
-                                      item_id=item_id)
+            file.save(os.path.join(enums.UPLOAD_FOLDER2, filename))
+            image = models.Image_recipe(id=str(uuid.uuid1()), name=os.path.join(enums.SAVE_IMAGE_RECIPE, filename),
+                                        recipe_id=recipe_id)
             try:
                 image.save_to_db()
                 return send_result(image.json(), message="upload successfully!")

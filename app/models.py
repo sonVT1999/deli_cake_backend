@@ -122,6 +122,14 @@ class Item(db.Model):
         db.session.commit()
 
     @classmethod
+    def get_all_item(cls):
+        rs = (cls.query.join(Subcategory, Subcategory.id == cls.subcategory_id)
+              .join(Category, Category.id == Subcategory.category_id)
+              .add_columns(cls.id, cls.name, cls.price, cls.product_detail, cls.size, Subcategory.id, Subcategory.name,
+                           Category.id, Category.name)).all()
+        return rs
+
+    @classmethod
     def get_by_id_subcategory(cls, _id):
         return cls.query.filter_by(subcategory_id=_id).all()
 
@@ -169,7 +177,7 @@ class Recipe(db.Model):
     def get_all_recipes(cls):
         rs = (cls.query.join(Subcategory, Subcategory.id == cls.subcategory_id)
               .join(Category, Category.id == Subcategory.category_id)
-              .add_columns(cls.id, cls.name, cls.publish_at, Category.name,
+              .add_columns(cls.id, cls.name, cls.publish_at, Category.id, Category.name, Subcategory.id,
                            Subcategory.name)).all()
         return rs
 
@@ -274,3 +282,7 @@ class Image_recipe(db.Model):
     def delete_to_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def get_by_id_recipe(cls, _id):
+        return cls.query.filter_by(recipe_id=_id).all()

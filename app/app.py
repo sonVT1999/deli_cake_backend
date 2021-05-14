@@ -89,6 +89,7 @@ def register_blueprints(app):
     app.register_blueprint(api_v1.recipes.api, url_prefix='/api/v1/recipes')
     app.register_blueprint(api_v1.users.api, url_prefix='/api/v1/users')
     app.register_blueprint(api_v1.images_items.api, url_prefix='/api/v1/images_items')
+    app.register_blueprint(api_v1.images_recipes.api, url_prefix='/api/v1/images_recipes')
 
 
 
