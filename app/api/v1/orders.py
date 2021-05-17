@@ -60,7 +60,8 @@ def create_order():
 def get_by_stt(status):
     rs = []
     x = [x.json() for x in models.Order.query.all()]
-
+    for data in x:
+        data["user"] = models.User.get_by_id(data['user_id']).json()
     for data in x:
         if data['status'] == status:
             rs.append(data)

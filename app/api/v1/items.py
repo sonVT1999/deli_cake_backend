@@ -1,4 +1,3 @@
-import uuid
 
 from flask import Blueprint
 from flask_restful import request, reqparse
