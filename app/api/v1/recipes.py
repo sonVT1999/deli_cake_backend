@@ -24,21 +24,22 @@ def get_all():
 
 @api.route('/<string:input>', methods=['GET'])
 def get_by_id(input):
-    a = []
+    recipe = []
     result = []
+
     query = models.Recipe.get_all_recipes()
     for i in query:
-        rs = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
-              'subcategory_id': i[6], 'subcategory': i[7]}
+        rs = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'direction': i[4], 'ingredient': i[5],
+              'category_id': i[6], 'category': i[7], 'subcategory_id': i[8], 'subcategory': i[9]}
         result.append(rs)
 
     for data in result:
         data["images_recipes"] = [x.json() for x in models.Image_recipe.get_by_id_recipe(data['id'])]
 
-    for data in a:
-        if data['id'] == input or data['title'] == input:
-            result.append(data)
-    return send_result(result)
+    for data in result:
+        if data['id'] == input or data['name_cake'] == input:
+            recipe.append(data)
+    return send_result(recipe)
 
 
 # @api.route('/<string:_id>', methods=['PUT'])
@@ -63,8 +64,8 @@ def get_by_category(category):
     rs = []
     query = models.Recipe.get_all_recipes()
     for i in query:
-        result = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
-                  'subcategory_id': i[6], 'subcategory': i[7]}
+        result = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[6], 'category': i[7],
+                  'subcategory_id': i[8], 'subcategory': i[9]}
         a.append(result)
     for data in a:
         if data['category'] == category:

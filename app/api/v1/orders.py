@@ -10,6 +10,21 @@ from app.utils import send_result, send_error
 
 api = Blueprint('orders', __name__)
 
+# orders = [
+#     {'id': 1, 'total': 504, 'status': "completed", 'phone_number': "0123456789",
+#      'Address': "Ha Noi", 'user':
+#               {
+#                 "address": "Thái Bình",
+#                 "email": "vuson212@gmail.com",
+#                 "id": "1",
+#                 "is_admin": true,
+#                 "password": "123",
+#                 "phone_number": "0987123734",
+#                 "username": "son"
+#             }
+#       }
+#     ]
+
 
 @api.route('', methods=['GET'])
 def get_all():

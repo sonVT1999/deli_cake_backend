@@ -109,6 +109,7 @@ class Item(db.Model):
     subcategory_id = db.Column(ForeignKey(Subcategory.id), nullable=False)
     order_detail = relationship("Order_detail", cascade="all, delete")
     recipe = relationship("Recipe", cascade="all, delete")
+    image_item = relationship("Image_item", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'price': self.price, 'product_detail': self.product_detail,
@@ -164,6 +165,7 @@ class Recipe(db.Model):
     ingredient = db.Column(db.String(255))
     publish_at = db.Column(db.Integer, nullable=False)
     item_id = db.Column(ForeignKey(Item.id), nullable=False)
+    image_recipe = relationship("Image_recipe", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'direction': self.direction, 'ingredient': self.ingredient,
@@ -186,7 +188,7 @@ class Recipe(db.Model):
         rs = (cls.query.join(Item, Item.id == cls.item_id)
               .join(Subcategory, Subcategory.id == Item.subcategory_id)
               .join(Category, Category.id == Subcategory.category_id)
-              .add_columns(cls.id, Item.name, cls.publish_at, Category.id, Category.name, Subcategory.id,
+              .add_columns(cls.id, Item.name, cls.publish_at, cls.direction, cls.ingredient, Category.id, Category.name, Subcategory.id,
                            Subcategory.name)).all()
         return rs
 

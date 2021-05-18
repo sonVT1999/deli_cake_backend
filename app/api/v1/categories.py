@@ -5,6 +5,26 @@ from app.utils import send_result
 
 api = Blueprint('categories', __name__)
 
+# categories = [
+#     {'id': 1, 'name': "birthday cake",
+#      'subcategory':
+#          [
+#              {
+#                  "sub_id": 1,
+#                  "sub_name": "chiffon cake"
+#              },
+#              {
+#                  "sub_id": 2,
+#                  "sub_name": "pound cake"
+#              },
+#              {
+#                  "sub_id": 3,
+#                  "sub_name": "fruit cake"
+#              }
+#          ]
+#      }
+# ]
+
 
 @api.route('', methods=['GET'])
 def get_all():

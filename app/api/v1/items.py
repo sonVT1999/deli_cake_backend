@@ -7,6 +7,16 @@ from app.utils import send_result, send_error
 
 api = Blueprint('items', __name__)
 
+# items = [
+#     {'id': "1", 'name': "matcha chess cake", 'price': 40, 'category': "birthday cake",
+#      'subcategory': "chiffon cake", 'images_items':
+#          [
+#               "item_id": "1",
+#               "name": "192.168.1.250:5012/images_items\\4.DeliCakeCategory.png"
+#          ]
+#      }
+# ]
+
 
 @api.route('', methods=['GET'])
 def get_all():
