@@ -13,11 +13,15 @@ api = Blueprint('orders', __name__)
 
 @api.route('', methods=['GET'])
 def get_all():
-    all_order = [x.json() for x in models.Order.query.all()]
-    for data in all_order:
+    rs = []
+    num_page = request.args.get('num_page', type=int)
+    all_order = models.Order.query.paginate(per_page=5, page=num_page, error_out=False)
+    for i in all_order.items:
+        rs.append(i.json())
+    for data in rs:
         data["user"] = models.User.get_by_id(data['user_id']).json()
 
-    return send_result(all_order)
+    return send_result(rs)
 
 
 @api.route('/<string:input>', methods=['GET'])

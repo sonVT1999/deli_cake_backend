@@ -1,4 +1,3 @@
-
 from flask import Blueprint
 from flask_restful import request, reqparse
 
@@ -11,8 +10,9 @@ api = Blueprint('items', __name__)
 
 @api.route('', methods=['GET'])
 def get_all():
+    num_page = request.args.get('num_page', type=int)
     result = []
-    query = models.Item.get_all_item()
+    query = models.Item.get_item_paginate(num_page)
     for i in query:
         rs = {'id': i[1], 'name': i[2], 'price': i[3], 'product_detail': i[4], 'size': i[5],
               'subcategory_id': i[6], 'subcategory': i[7], 'category_id': i[8], 'category': i[9]}
@@ -121,3 +121,13 @@ def get_by_sub(_id):
         if data['subcategory_id'] == _id:
             item.append(data)
     return send_result(item)
+
+
+# @api.route('/item/<int:page_num>', methods=['GET'])
+# def get_all_(page_num):
+#     rs = []
+#     queri = models.Item.query.paginate(per_page=5, page=page_num, error_out=False)
+#     print(queri)
+#     for i in queri.items:
+#         rs.append(i.json())
+#     return send_result(rs)

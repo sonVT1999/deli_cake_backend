@@ -9,7 +9,8 @@ api = Blueprint('recipes', __name__)
 @api.route('', methods=['GET'])
 def get_all():
     result = []
-    query = models.Recipe.get_all_recipes()
+    num_page = request.args.get('num_page', type=int)
+    query = models.Recipe.get_recipes_paginate(num_page)
     for i in query:
         rs = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
               'subcategory_id': i[6], 'subcategory': i[7]}

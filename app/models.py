@@ -123,6 +123,14 @@ class Item(db.Model):
         db.session.commit()
 
     @classmethod
+    def get_item_paginate(cls, num_page):
+        rs = (cls.query.join(Subcategory, Subcategory.id == cls.subcategory_id)
+              .join(Category, Category.id == Subcategory.category_id)
+              .add_columns(cls.id, cls.name, cls.price, cls.product_detail, cls.size, Subcategory.id, Subcategory.name,
+                           Category.id, Category.name)).paginate(per_page=5, page=num_page, error_out=False).items
+        return rs
+
+    @classmethod
     def get_all_item(cls):
         rs = (cls.query.join(Subcategory, Subcategory.id == cls.subcategory_id)
               .join(Category, Category.id == Subcategory.category_id)
@@ -180,6 +188,15 @@ class Recipe(db.Model):
               .join(Category, Category.id == Subcategory.category_id)
               .add_columns(cls.id, Item.name, cls.publish_at, Category.id, Category.name, Subcategory.id,
                            Subcategory.name)).all()
+        return rs
+
+    @classmethod
+    def get_recipes_paginate(cls, num_page):
+        rs = (cls.query.join(Item, Item.id == cls.item_id)
+              .join(Subcategory, Subcategory.id == Item.subcategory_id)
+              .join(Category, Category.id == Subcategory.category_id)
+              .add_columns(cls.id, Item.name, cls.publish_at, Category.id, Category.name, Subcategory.id,
+                           Subcategory.name)).paginate(per_page=5, page=num_page, error_out=False).items
         return rs
 
 
