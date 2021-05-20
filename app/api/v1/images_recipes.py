@@ -25,10 +25,13 @@ def upload_file(recipe_id):
         file = request.files['file']
         if file.filename == '':
             return send_error()
+        id_image = str(uuid.uuid1())
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(enums.UPLOAD_FOLDER2, filename))
-            image = models.Image_recipe(id=str(uuid.uuid1()), name=os.path.join(enums.SAVE_IMAGE_RECIPE, filename),
+            y = filename.split(".")
+            filenames = y[0] + id_image + "." + y[-1]
+            file.save(os.path.join(enums.UPLOAD_FOLDER2, filenames))
+            image = models.Image_recipe(id=id_image, name=os.path.join(enums.SAVE_IMAGE_RECIPE, filenames),
                                         recipe_id=recipe_id)
             try:
                 image.save_to_db()
@@ -47,11 +50,15 @@ def create_recipe():
     recipe = models.Recipe(id=str(uuid.uuid1()), direction=direction, ingredient=ingredient, publish_at=publish_at,
                            item_id=item_id)
     recipe.save_to_db()
+
     for file in files:
         if file and allowed_file(file.filename):
+            id_image = str(uuid.uuid1())
             filename = secure_filename(file.filename)
-            file.save(os.path.join(enums.UPLOAD_FOLDER2, filename))
-            image = models.Image_recipe(id=str(uuid.uuid1()), name=os.path.join(enums.SAVE_IMAGE_RECIPE, filename),
+            y = filename.split(".")
+            filenames = y[0] + id_image + "." + y[-1]
+            file.save(os.path.join(enums.UPLOAD_FOLDER2, filenames))
+            image = models.Image_recipe(id=id_image, name=os.path.join(enums.SAVE_IMAGE_RECIPE, filenames),
                                         recipe_id=recipe.id)
             image.save_to_db()
     try:

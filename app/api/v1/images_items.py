@@ -25,10 +25,13 @@ def upload_file(item_id):
         file = request.files['file']
         if file.filename == '':
             return send_error()
+        id_image = str(uuid.uuid1())
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(enums.UPLOAD_FOLDER, filename))
-            image = models.Image_item(id=str(uuid.uuid1()), name=os.path.join(enums.SAVE_IMAGE_ITEM, filename),
+            y = filename.split(".")
+            filenames = y[0] + id_image + "." + y[-1]
+            file.save(os.path.join(enums.UPLOAD_FOLDER, filenames))
+            image = models.Image_item(id=id_image, name=os.path.join(enums.SAVE_IMAGE_ITEM, filenames),
                                       item_id=item_id)
             try:
                 image.save_to_db()
@@ -51,9 +54,12 @@ def create_item():
 
     for file in files:
         if file and allowed_file(file.filename):
+            id_image = str(uuid.uuid1())
             filename = secure_filename(file.filename)
-            file.save(os.path.join(enums.UPLOAD_FOLDER, filename))
-            image = models.Image_item(id=str(uuid.uuid1()), name=os.path.join(enums.SAVE_IMAGE_ITEM, filename),
+            y = filename.split(".")
+            filenames = y[0] + id_image + "." + y[-1]
+            file.save(os.path.join(enums.UPLOAD_FOLDER, filenames))
+            image = models.Image_item(id=id_image, name=os.path.join(enums.SAVE_IMAGE_ITEM, filenames),
                                       item_id=item.id)
             image.save_to_db()
     try:

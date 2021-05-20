@@ -128,7 +128,7 @@ class Item(db.Model):
         rs = (cls.query.join(Subcategory, Subcategory.id == cls.subcategory_id)
               .join(Category, Category.id == Subcategory.category_id)
               .add_columns(cls.id, cls.name, cls.price, cls.product_detail, cls.size, Subcategory.id, Subcategory.name,
-                           Category.id, Category.name)).paginate(per_page=5, page=num_page, error_out=False).items
+                           Category.id, Category.name)).paginate(per_page=100, page=num_page, error_out=False).items
         return rs
 
     @classmethod
@@ -188,8 +188,8 @@ class Recipe(db.Model):
         rs = (cls.query.join(Item, Item.id == cls.item_id)
               .join(Subcategory, Subcategory.id == Item.subcategory_id)
               .join(Category, Category.id == Subcategory.category_id)
-              .add_columns(cls.id, Item.name, cls.publish_at, cls.direction, cls.ingredient, Category.id, Category.name, Subcategory.id,
-                           Subcategory.name)).all()
+              .add_columns(cls.id, Item.name, cls.publish_at, cls.direction, cls.ingredient, Category.id, Category.name,
+                           Subcategory.id, Subcategory.name)).all()
         return rs
 
     @classmethod
@@ -197,8 +197,8 @@ class Recipe(db.Model):
         rs = (cls.query.join(Item, Item.id == cls.item_id)
               .join(Subcategory, Subcategory.id == Item.subcategory_id)
               .join(Category, Category.id == Subcategory.category_id)
-              .add_columns(cls.id, Item.name, cls.publish_at, Category.id, Category.name, Subcategory.id,
-                           Subcategory.name)).paginate(per_page=5, page=num_page, error_out=False).items
+              .add_columns(cls.id, Item.name, cls.publish_at, cls.direction, cls.ingredient, Category.id, Category.name,
+                           Subcategory.id, Subcategory.name)).paginate(per_page=100, page=num_page, error_out=False).items
         return rs
 
 

@@ -30,7 +30,7 @@ api = Blueprint('orders', __name__)
 def get_all():
     rs = []
     num_page = request.args.get('num_page', type=int)
-    all_order = models.Order.query.paginate(per_page=5, page=num_page, error_out=False)
+    all_order = models.Order.query.paginate(per_page=100, page=num_page, error_out=False)
     for i in all_order.items:
         rs.append(i.json())
     for data in rs:

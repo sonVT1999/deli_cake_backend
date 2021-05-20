@@ -12,8 +12,8 @@ def get_all():
     num_page = request.args.get('num_page', type=int)
     query = models.Recipe.get_recipes_paginate(num_page)
     for i in query:
-        rs = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'category_id': i[4], 'category': i[5],
-              'subcategory_id': i[6], 'subcategory': i[7]}
+        rs = {'id': i[1], 'name_cake': i[2], 'publish_at': i[3], 'direction': i[4], 'ingredient': i[5],
+              'category_id': i[6], 'category': i[7], 'subcategory_id': i[8], 'subcategory': i[9]}
         result.append(rs)
 
     for data in result:

@@ -61,7 +61,7 @@ def put_by_id(_id):
     if item is None:
         send_error()
     else:
-        keys = ["name", "price", "product_detail", "size", "subcategory"]
+        keys = ["name", "price", "product_detail", "size", "subcategory_id"]
         for key in keys:
             if key in data.keys():
                 setattr(item, key, data[key])
@@ -136,8 +136,8 @@ def get_by_sub(_id):
 # @api.route('/item/<int:page_num>', methods=['GET'])
 # def get_all_(page_num):
 #     rs = []
-#     queri = models.Item.query.paginate(per_page=5, page=page_num, error_out=False)
-#     print(queri)
-#     for i in queri.items:
+#     q = models.Item.query.paginate(per_page=5, page=page_num, error_out=False)
+#     print(q)
+#     for i in q.items:
 #         rs.append(i.json())
 #     return send_result(rs)
