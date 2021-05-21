@@ -66,3 +66,12 @@ def create_item():
         return send_result(item.json(), message="upload successfully!")
     except:
         return send_error()
+
+
+@api.route('/', methods=['DELETE'])
+def delete_by_id():
+    _id = request.args.get('_id', type=str)
+    image_item = models.Image_item.get_by_id(_id)
+    if image_item:
+        image_item.delete_to_db()
+    return send_result(message="deleted successfully!")

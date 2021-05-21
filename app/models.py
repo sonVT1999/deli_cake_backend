@@ -77,6 +77,7 @@ class Subcategory(db.Model):
     id = db.Column(db.String(100), primary_key=True)
     name = db.Column(db.String(100))
     category_id = db.Column(ForeignKey(Category.id), nullable=False)
+    item = relationship("Item", cascade="all, delete")
 
     def json(self):
         return {'id': self.id, 'name': self.name, 'category_id': self.category_id}
@@ -95,7 +96,7 @@ class Subcategory(db.Model):
 
     @classmethod
     def get_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
+        return cls.query.filter_by(id=_id).first().item
 
 
 class Item(db.Model):
@@ -153,7 +154,7 @@ class Item(db.Model):
 
     @classmethod
     def delete_by_id(cls, _id):
-        rs = cls.query.filter_by(id=_id).first().order_detail
+        rs = cls.query.filter_by(id=_id).first().order_detail.recipe.image_item
         return rs
 
 
@@ -283,6 +284,10 @@ class Image_item(db.Model):
     @classmethod
     def get_by_id_item(cls, _id):
         return cls.query.filter_by(item_id=_id).all()
+
+    @classmethod
+    def get_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
 
 class Image_recipe(db.Model):

@@ -75,8 +75,9 @@ def get_by_category(category):
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
-    _id = request.args.get('id', type=str)
-    recipe = models.Recipe.get_by_id(_id)
-    if recipe:
-        recipe.delete_to_db()
+    ids = request.args.getlist('ids', type=str)
+    for i in ids:
+        recipe = models.Recipe.get_by_id(i)
+        if recipe:
+            recipe.delete_to_db()
     return send_result(message="deleted successfully!")
