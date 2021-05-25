@@ -22,8 +22,8 @@ def create_cate():
 
 @api.route('/', methods=['DELETE'])
 def delete_by_id():
-    id = request.args.get('id', type=str)
-    sub_name = models.Subcategory.get_by_id(id)
-    if sub_name:
-        sub_name.delete_to_db()
+    _id = request.args.get('_id', type=str)
+    subcate = models.Subcategory.get_by_id(_id)
+    if subcate:
+        subcate.delete_to_db()
     return send_result(message="deleted successfully!")

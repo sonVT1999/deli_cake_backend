@@ -96,7 +96,8 @@ class Subcategory(db.Model):
 
     @classmethod
     def get_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first().item
+        rs = cls.query.filter_by(id=_id).first()
+        return rs
 
 
 class Item(db.Model):
@@ -181,7 +182,7 @@ class Recipe(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_by_id(cls, _id):
+    def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
 
     @classmethod
@@ -311,3 +312,7 @@ class Image_recipe(db.Model):
     @classmethod
     def get_by_id_recipe(cls, _id):
         return cls.query.filter_by(recipe_id=_id).all()
+
+    @classmethod
+    def get_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()

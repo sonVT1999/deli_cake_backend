@@ -43,12 +43,12 @@ def upload_file(recipe_id):
 @api.route('/create/', methods=["POST"])
 def create_recipe():
     ingredient = request.form.get('ingredient')
-    direction = request.form.get('direction')
+    direction = request.form.getlist('direction')
     publish_at = request.form.get('publish_at')
     item_id = request.form.get('item_id')
     files = request.files.getlist("images")
-    recipe = models.Recipe(id=str(uuid.uuid1()), direction=direction, ingredient=ingredient, publish_at=publish_at,
-                           item_id=item_id)
+    recipe = models.Recipe(id=str(uuid.uuid1()), direction=direction, ingredient=ingredient,
+                           publish_at=publish_at, item_id=item_id)
     recipe.save_to_db()
 
     for file in files:
@@ -65,3 +65,12 @@ def create_recipe():
         return send_result(recipe.json(), message="upload successfully!")
     except:
         return send_error()
+
+
+@api.route('/', methods=['DELETE'])
+def delete_by_id():
+    _id = request.args.get('_id', type=str)
+    image_recipe = models.Image_recipe.get_by_id(_id)
+    if image_recipe:
+        image_recipe.delete_to_db()
+    return send_result(message="deleted successfully!")

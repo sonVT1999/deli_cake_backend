@@ -1,7 +1,11 @@
+import time
+
 from flask import Blueprint, request
+from flask_restful import reqparse
 
 from app import models
-from app.utils import send_result
+from app.extensions import db
+from app.utils import send_result, send_error
 
 api = Blueprint('recipes', __name__)
 
@@ -42,20 +46,30 @@ def get_by_id(input):
     return send_result(recipe)
 
 
-# @api.route('/<string:_id>', methods=['PUT'])
-# def put_by_id(_id):
-#     data = reqparse.request.get_json()
-#
-#     item = models.Item.find_by_id(_id)
-#     if item is None:
-#         send_error()
-#     else:
-#         keys = ["name", "price", "product_detail", "size", "subcategory"]
-#         for key in keys:
-#             if key in data.keys():
-#                 setattr(item, key, data[key])
-#         db.session.commit()
-#     return send_result(item.json())
+@api.route('/get/<string:_id>', methods=['GET'])
+def search_by_id(_id):
+    recipe = models.Recipe.find_by_id(_id)
+    recipe = recipe.json()
+    recipe["image_recipe"] = [x.json() for x in models.Image_recipe.get_by_id_recipe(_id)]
+
+    return send_result(recipe)
+
+
+@api.route('/<string:_id>', methods=['PUT'])
+def put_by_id(_id):
+    data = reqparse.request.get_json()
+
+    item = models.Recipe.find_by_id(_id)
+    if item is None:
+        send_error()
+    else:
+        keys = ["direction", "ingredient"]
+        for key in keys:
+            if key in data.keys():
+                setattr(item, key, data[key])
+        item.publish_at = time.time()
+        db.session.commit()
+    return send_result(item.json())
 
 
 @api.route('/cate/<string:category>', methods=['GET'])
@@ -77,7 +91,7 @@ def get_by_category(category):
 def delete_by_id():
     ids = request.args.getlist('ids', type=str)
     for i in ids:
-        recipe = models.Recipe.get_by_id(i)
+        recipe = models.Recipe.find_by_id(i)
         if recipe:
             recipe.delete_to_db()
     return send_result(message="deleted successfully!")

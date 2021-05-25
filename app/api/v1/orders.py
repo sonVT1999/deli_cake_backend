@@ -10,6 +10,7 @@ from app.utils import send_result, send_error
 
 api = Blueprint('orders', __name__)
 
+
 # orders = [
 #     {'id': 1, 'total': 504, 'status': "completed", 'phone_number': "0123456789",
 #      'Address': "Ha Noi", 'user':
@@ -67,8 +68,9 @@ def get_by_id(input):
 @api.route('/', methods=["POST"])
 def create_order():
     data = reqparse.request.get_json()
-    order = models.Order(id=str(uuid.uuid1()), **data)
+    order = models.Order(id=str(uuid.uuid1()), status="pending", make_invoice=0, created_date=0, **data)
     try:
+
         order.save_to_db()
         return send_result(order.json())
     except:

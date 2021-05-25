@@ -34,7 +34,7 @@ def get_all():
 
 
 @api.route('/<string:input>', methods=['GET'])
-def search_by_id(input):
+def get_by_id(input):
     item = []
     result = []
 
@@ -50,6 +50,15 @@ def search_by_id(input):
     for data in result:
         if data['id'] == input or data['name'] == input:
             item.append(data)
+    return send_result(item)
+
+
+@api.route('/get/<string:_id>', methods=['GET'])
+def search_by_id(_id):
+    item = models.Item.find_by_id(_id)
+    item = item.json()
+    item["image_item"] = [x.json() for x in models.Image_item.get_by_id_item(_id)]
+
     return send_result(item)
 
 
